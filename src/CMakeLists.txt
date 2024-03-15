@@ -1,0 +1,6 @@
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/core)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/widgets)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/raygui)
+
+set(SRC_FILES ${SRC_FILES} ${FILES} PARENT_SCOPE)
+set(SRC_DIRS ${SRC_DIRS} ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)

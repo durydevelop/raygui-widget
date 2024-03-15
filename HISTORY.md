@@ -15,3 +15,7 @@ On March 2019, the first set of new raygui tools was published: [rFXGen 2.0](htt
 From March 2019 to June 2019 raygui development decelerated, Sergio left the project and efforts were focused on raylib 2.5, during this time one external contributor, [Vlad Adrian](https://github.com/Demizdor), completely redesigned `GuiTextBox()` and related controls and version was bumped to raygui 2.5.
 
 During summer 2019 lots of raygui functions were reviewed, breaking compatibility to any previous version and pointing to a **raygui 2.6** update.
+
+## raygui-widgets history
+
+raygui-widgets born from raygui fork in October 2023. The aim is to create an easiest-to-use C++ cross-compiled gui library especially used in machine based user interface.
