@@ -1,4 +1,4 @@
-## raygui-widgets history
+## raygui-widget history
 
 raygui-widgets born from raygui fork in October 2023. The aim is to create an easiest-to-use C++ cross-compiled gui library especially used in machine based user interface.
 
