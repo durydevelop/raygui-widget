@@ -1,4 +1,5 @@
 #include "DGuiButton.h"
+#include "Log.h"
 
 DGuiButton::DGuiButton(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget, OnWidgetEventCallback EventCallback) : DGuiWidget(DBUTTON,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget,EventCallback)
 {
@@ -19,13 +20,8 @@ DGuiButton::DGuiButton(Rectangle WidgetBounds, DGuiWidget *ParentWidget, OnWidge
  */
 void DGuiButton::Draw()
 {
-    BackupCurrentGuiStyle();
-    SetWidgetGuiStyle();
-
     if (GuiButton(Bounds, Text.c_str())) {
         DWidgetEvent Event={DEventCode::BUTTON_PRESS, nullptr};
         SendEvent(Event);
     }
-
-    RestoreCurrentGuiStyle();
 }

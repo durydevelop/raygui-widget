@@ -30,61 +30,31 @@ class DGuiWidget
             DTextAlign TextAlign;
             int TextSize;
             int TextSpacing;
+
             // Color (defaults are set in SetWidgetType())
             int BorderWidth;
             unsigned int BorderColor;
             unsigned int LineColor;
             unsigned int BackGroundColor;
-            // Others (defaults are set here)
-            //std::string AnchorId; // deprecated
+
+            // Dinamic behaviours (defaults are set here)
             bool Enabled=true;
             bool Visible=true;
+            bool ShowBorder=false;
+
+            //std::string AnchorId; // deprecated
         }Properties;
         
         DGuiWidget(DWidgetType WidgetType, int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, DGuiWidget *ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
         DGuiWidget(DWidgetType WidgetType, Rectangle WidgetBounds, DGuiWidget *ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
 
-        void GenerateId(void);
-
-        void SetWidgetType(DWidgetType WidgetType);
-        DWidgetType GetWidgetType(void);
-        std::string GetWidgetTypeName(void);
-        void SetTextSize(int NewSize);
-        int GetTextSize(void);
-        void SetWidth(int Width);
-        size_t GetWidth(void);
-        void SetHeight(int Height);
-        size_t GetHeight(void);
-        void SetParent(DGuiWidget *Parent);
-        DGuiWidget* GetParent(void);
+        /// Virtual method that MUST be implemented by sub-class
+        virtual void Draw() = 0;
+        
+        /// Virtual methods that can be reimplemented
         virtual void SetText(std::string NewText);
         virtual const std::string& GetText(void);
-        void SetTextAlign(std::string AlignHoriz, std::string AlignVert);
-
-        void SetOnWidgetEvent(OnWidgetEventCallback Callback);
         virtual void SetOnGuiEvent(OnGuiEventCallback Callback);
-        void SendEvent(DWidgetEvent WidgetEvent);
-        void SetPos(int LeftPos, int TopPos);
-        void SetSize(int Width, int Height);
-        void SetDocking(DDocking DockingPos, int Height);
-        void SetDocking(std::string DockingSideName, int OtherSize);
-        
-        
-        void SetBounds(int LeftPos, int TopPos, int Width, int Height);
-        void SetBounds(Rectangle WidgetBounds);
-        void SetBorderWidth(uint8_t NewWidth);
-
-        void SetEnabled(bool Enabled);
-        void SetVisible(bool Visible);
-       
-        std::string GetId(void);
-        
-        void Clear(void);
-
-        /// Custom Drawers
-        //void DrawText(std::string TextMsg, Rectangle TextBounds, bool clearBefore);
-
-        void Draws(void);
 
         /// Static methods
         static DGuiWidget* New(const std::string& Filename, DGuiWidget *Parent);
@@ -93,6 +63,36 @@ class DGuiWidget
         static DGuiWidget* New(DWidgetType WidgetType, Rectangle WidgetBounds, std::string Text, DGuiWidget *Parent);
         static std::string RglToJson(std::string Filename);
         static DGuiWidget* RglLineToWidget(std::string Line);
+
+        void GenerateId(void);
+        void Clear(void);
+        void Draws(void);
+
+        void SetWidgetType(DWidgetType WidgetType);
+        void SetTextSize(int NewSize);
+        void SetWidth(int Width);
+        void SetHeight(int Height);
+        void SetParent(DGuiWidget *Parent);
+        void SetTextAlign(std::string AlignHoriz, std::string AlignVert);
+        void SetOnWidgetEvent(OnWidgetEventCallback Callback);
+        void SendEvent(DWidgetEvent WidgetEvent);
+        void SetPos(int LeftPos, int TopPos);
+        void SetSize(int Width, int Height);
+        void SetDocking(DDocking DockingPos, int Height);
+        void SetDocking(std::string DockingSideName, int OtherSize);
+        void SetBounds(int LeftPos, int TopPos, int Width, int Height);
+        void SetBounds(Rectangle WidgetBounds);
+        void SetBorderWidth(uint8_t NewWidth);
+        void SetEnabled(bool Enabled);
+        void SetVisible(bool Visible);
+
+        int GetTextSize(void);
+        size_t GetWidth(void);
+        size_t GetHeight(void);
+        DGuiWidget* GetParent(void);
+        DWidgetType GetWidgetType(void);
+        std::string GetWidgetTypeName(void);
+        std::string GetId(void);
 
         std::string Name;
         Rectangle Bounds;
@@ -116,8 +116,5 @@ class DGuiWidget
     private:
         std::string Id;
         DProperties TempStyle;
-
-        /// Virtual methods that must be implemented.
-        virtual void Draw() = 0;
 };
 #endif

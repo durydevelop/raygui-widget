@@ -54,8 +54,9 @@ class DGuiApp
         bool IsReady(void);
 
         // Events
-        void OnGuiEvent(OnGuiEventCallback Callback);
-        void OnAppStarted(std::function<void (void)> Callback);
+        void SetOnGuiEvent(OnGuiEventCallback Callback);
+        void SetOnAppStarted(std::function<void (void)> Callback);
+        void SetOnAppStopped(std::function<void (void)> Callback);
 
         bool Running;
         //bool ShouldClearScreen;   //! If true screeen will be cleared at next draw
@@ -66,7 +67,11 @@ class DGuiApp
     private:
         std::map<std::string,DGuiContainer*> Containers;
         std::map<std::string,DGuiWidget*> StaticWidgets;
-        std::function<void (void)> OnAppStartedCallback;
+
+        // Event callbacks
+        OnGuiEventCallback GuiEventCallback;
+        std::function<void (void)> AppStartedCallback;
+        std::function<void (void)> AppStoppedCallback;
  };
 
 #endif

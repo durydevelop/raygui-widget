@@ -36,8 +36,11 @@ struct DJsonTree {
     inline static const std::string ITEM_BOUNDS="Bounds";
     inline static const std::string ITEM_READ_ONLY="ReadOnly";
     inline static const std::string ITEM_PASSWORD_MODE="PasswordMode";
+    inline static const std::string ITEM_MAX_TEXT_LENGHT="MaxTextLenght";
     inline static const std::string ITEM_ENABLED="Enabled";
     inline static const std::string ITEM_VISIBLE="Visible";
+    inline static const std::string ITEM_SHOW_BORDER="ShowBorder";
+    inline static const std::string ITEM_BORDER_WIDTH="BorderWidth";
 
     inline static const std::string VALUE_BOTTOM="Bottom";
     inline static const std::string VALUE_TOP="Top";
@@ -78,12 +81,12 @@ DGuiWidget::DGuiWidget(DWidgetType WidgetType, int LeftPos, int TopPos, int Widg
     if (TopPos < 0) {
         TopPos=0;
     }
-    Log(DLOG_DEBUG,"ParentWidget=%d",ParentWidget);
-    Log(DLOG_DEBUG,"SetParent");
+    //Log(DLOG_DEBUG,"ParentWidget=%d",ParentWidget);
+    //Log(DLOG_DEBUG,"SetParent");
     SetParent(ParentWidget);
-    Log(DLOG_DEBUG,"SetBounds");
+    //Log(DLOG_DEBUG,"SetBounds");
     SetBounds(LeftPos,TopPos,WidgetWidth,WidgetHeight);
-    Log(DLOG_DEBUG,"SetWidgetType");
+    //Log(DLOG_DEBUG,"SetWidgetType");
     SetWidgetType(WidgetType);
     OnWidgetEvent=EventCallback;
 };
@@ -183,9 +186,7 @@ void DGuiWidget::SetPos(int LeftPos, int TopPos)
  */
 void DGuiWidget::SetSize(int Width, int Height)
 {
-    Log(DLOG_DEBUG,"Setwidth");
     SetWidth(Width);
-    Log(DLOG_DEBUG,"SetHeight");
     SetHeight(Height);
 };
 
@@ -199,11 +200,11 @@ void DGuiWidget::SetWidth(int Width)
     if (Width < 0) {
         // Parent width
         if (Parent) {
-            Log(DLOG_DEBUG,"Parent->GetWidth()");
+            //Log(DLOG_DEBUG,"Parent->GetWidth()");
             Bounds.width=Parent->GetWidth();
         }
         else {
-            Log(DLOG_DEBUG,"GetScreenWidth()");
+            //Log(DLOG_DEBUG,"GetScreenWidth()");
             Bounds.width=GetScreenWidth();
         }
     }
@@ -251,9 +252,7 @@ void DGuiWidget::SetHeight(int Height)
  */
 void DGuiWidget::SetBounds(int LeftPos, int TopPos, int Width, int Height)
 {
-    Log(DLOG_DEBUG,"Setpos");
     SetPos(LeftPos,TopPos);
-    Log(DLOG_DEBUG,"Setsize");
     SetSize(Width,Height);
 };
 
@@ -309,8 +308,8 @@ void DGuiWidget::SetDocking(std::string DockingSideName, int OtherSize) {
 void DGuiWidget::SetDocking(DDocking DockingSide, int OtherSize) {
     int ParentHeight=0;
     int ParentWidth=0;
+
     if (!Parent) {
-        Log(DLOG_WARNING,"Parent Container not set for widget <%s>: assume screen",Name.c_str());
         ParentHeight=GetScreenHeight();
         ParentWidth=GetScreenWidth();
     }
@@ -318,7 +317,6 @@ void DGuiWidget::SetDocking(DDocking DockingSide, int OtherSize) {
         ParentHeight=Parent->GetHeight();
         ParentWidth=Parent->GetWidth();
     }
-
 
     // Calculate bounds due to the screen position
     switch (DockingSide) {
@@ -546,12 +544,20 @@ void DGuiWidget::RestoreCurrentGuiStyle(void) {
 }
 
 void DGuiWidget::Draws(void) {
-    BackupCurrentGuiStyle();
-    SetWidgetGuiStyle();
+    if (Properties.Visible) {
+        BackupCurrentGuiStyle();
+        SetWidgetGuiStyle();
 
-    Draw();
+        // Draw Widget
+        Draw();
 
-    RestoreCurrentGuiStyle();
+        // Draw Borders
+        if(Properties.ShowBorder) {
+            DrawRectangleLinesEx(Bounds,Properties.BorderWidth,GetColor(Properties.BorderColor));
+        }
+
+        RestoreCurrentGuiStyle();
+    }
 }
 
 /**
@@ -634,7 +640,7 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
     std::string AlignVert=WidgetTree.ReadString(DJsonTree::ITEM_TEXT_ALIGN_V,"");
     Widget->SetTextAlign(AlignHoriz,AlignVert);
     
-// TODO (sono già gestite da Widget->Draw)
+// @todo (sono già gestite da Widget->Draw)
 //    Properties.TextColor=GuiGetStyle(Type,TEXT_COLOR_NORMAL);
 //    Properties.TextSpacing=GuiGetStyle(Type,TEXT_SPACING);
     
@@ -669,12 +675,19 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
     // Visible
     Widget->Properties.Visible=WidgetTree.ReadBool(DJsonTree::ITEM_VISIBLE,true);
 
+    // ShowBorder
+    Widget->Properties.ShowBorder=WidgetTree.ReadBool(DJsonTree::ITEM_SHOW_BORDER,false);
+
+    // Border width
+    int BorderWidth=WidgetTree.ReadInteger(DJsonTree::ITEM_BORDER_WIDTH, 0);
+    if (BorderWidth > 0) Widget->Properties.BorderWidth=BorderWidth;
+
     // ** Specific widget properties **
     if (Widget->GetWidgetType() == DWidgetType::DCONTAINER) {
         DGuiContainer* Container=(DGuiContainer *) Widget;
         // Widgets
         std::vector<DTree> Children=WidgetTree.ReadArrayTrees(DJsonTree::SEC_CHILDREN);
-        Log(DLOG_DEBUG,"Container have %d widgets",Children.size());
+        Log(DLOG_DEBUG,"Container %s have %d widgets",Container->Name.c_str(),Children.size());
         for (auto Child : Children) {
             DGuiWidget *SubWidget=DGuiWidget::New(Child,Widget);
             if (SubWidget) {
@@ -695,24 +708,24 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
             int Width=-1; // auto
             std::string DockingSide=SubItems.ReadString(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIDE,"");
             if (DockingSide == DJsonTree::VALUE_LEFT) {
-                Log(DLOG_DEBUG,"Statusbar item docked to the left");
+                //Log(DLOG_DEBUG,"Statusbar item docked to the left");
                 Left=DGuiWidget::DOCK_LEFT;
                 Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
             }
             else if (DockingSide == DJsonTree::VALUE_RIGHT) {
-                Log(DLOG_DEBUG,"Statusbar item docked to the right");
+                //Log(DLOG_DEBUG,"Statusbar item docked to the right");
                 Left=DGuiWidget::DOCK_RIGHT;
                 Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
             }
             else if (DockingSide == DJsonTree::VALUE_CENTER) {
-                Log(DLOG_DEBUG,"Statusbar item docked to center");
+                //Log(DLOG_DEBUG,"Statusbar item docked to center");
                 Left=DGuiWidget::DOCK_CENTER;
                 Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
             }
             else {
                 Left=SubItems.ReadInteger(ItemName,DJsonTree::ITEM_LEFT,DGuiWidget::DOCK_LEFT);
                 if (Left < DGuiWidget::DOCK_CENTER) {
-                    Log(DLOG_WARNING,"Left value of %d is not supported, set to 0");
+                    //Log(DLOG_WARNING,"Left value of %d is not supported, set to 0");
                     Left=0;
                 }
                 Width=SubItems.ReadInteger(ItemName,DJsonTree::ITEM_WIDTH,DGuiWidget::WIDTH_AUTO);
@@ -725,7 +738,7 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
             
 
             // Add Item
-            Log(DLOG_DEBUG,"%s: Left=%d, Width=%d, Text=<%s>",ItemName.c_str(),Left,Width,Text.c_str());
+            //Log(DLOG_DEBUG,"%s: Left=%d, Width=%d, Text=<%s>",ItemName.c_str(),Left,Width,Text.c_str());
             StatusBar->AddItem(ItemName,Left,Width,Text);
             // Set align
             DGuiStatusBar::DStatusBarItem *Item=StatusBar->GetItem(ItemName);
@@ -742,6 +755,8 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
         // PasswordMode
         bool pm=WidgetTree.ReadBool(DJsonTree::ITEM_PASSWORD_MODE,false);
         Edit->SetPasswordMode(pm);
+        // MaxTextLenght
+        Edit->SetMaxTextLenght(WidgetTree.ReadInteger(DJsonTree::ITEM_MAX_TEXT_LENGHT,0));
     }
 
     return Widget;
@@ -750,37 +765,32 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
 DGuiWidget* DGuiWidget::New(DWidgetType WidgetType, int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, std::string Text, DGuiWidget *Parent)
 {
     if (WidgetType == DCONTAINER) {
-        Log(DLOG_DEBUG,"New Container");
+        //Log(DLOG_DEBUG,"New Container");
         DGuiContainer *Container=new DGuiContainer(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
-        //Container->SetParent(Parent);
         Container->SetText(Text);
         return Container;
     }
     if (WidgetType == DLABEL) {
-        Log(DLOG_DEBUG,"New label");
+        //Log(DLOG_DEBUG,"New label");
         DGuiLabel *Label=new DGuiLabel(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
-        //Label->SetParent(Parent);
         Label->SetText(Text);
         return Label;
     }
     else if (WidgetType == DBUTTON) {
-        Log(DLOG_DEBUG,"New button");
+        //Log(DLOG_DEBUG,"New button");
         DGuiButton *Button=new DGuiButton(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
-        //Button->SetParent(Parent);
         Button->SetText(Text);
         return Button;
     }
     else if (WidgetType == DEDIT) {
-        Log(DLOG_DEBUG,"New edit");
+        //Log(DLOG_DEBUG,"New edit");
         DGuiEdit *Edit=new DGuiEdit(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
-        //Edit->SetParent(Parent);
         Edit->SetText(Text);
         return Edit;
     }
     if (WidgetType == DSTATUSBAR) {
-        Log(DLOG_DEBUG,"New StatusBar");
+        //Log(DLOG_DEBUG,"New StatusBar");
         DGuiStatusBar *StatusBar=new DGuiStatusBar(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
-        //StatusBar->SetParent(Parent);
         StatusBar->SetText(Text);
         return StatusBar;
     }

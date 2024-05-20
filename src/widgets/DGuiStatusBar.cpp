@@ -27,6 +27,7 @@ DGuiStatusBar::DGuiStatusBar(DDocking DockingPos, int SideSize, DGuiWidget *Pare
     SetDocking(DockingPos,SideSize);
 }
 */
+
 DGuiStatusBar* DGuiStatusBar::LoadFromJson(std::string JsonFilename, DGuiWidget *Parent) {
     DTools::DPreferences Json(JsonFilename);
     if (!Json.IsReady()) {
@@ -36,7 +37,7 @@ DGuiStatusBar* DGuiStatusBar::LoadFromJson(std::string JsonFilename, DGuiWidget 
     
     DGuiWidget *Widget=DGuiWidget::New(Json.GetRootTree(),Parent);
     if (Widget->GetWidgetType() != DWidgetType::DSTATUSBAR) {
-        Log(DLOG_ERROR,"Not a StatusB widget: %s",Widget->GetWidgetTypeName().c_str());
+        Log(DLOG_ERROR,"Not a StatusBar widget: %s",Widget->GetWidgetTypeName().c_str());
         return nullptr;
     }
 
@@ -122,15 +123,10 @@ void DGuiStatusBar::SetItemText(std::string ItemName, std::string ItemText) {
  */
 void DGuiStatusBar::Draw()
 {
-    BackupCurrentGuiStyle();
-    SetWidgetGuiStyle();
-
     GuiStatusBar(Bounds, "");
     for (auto [Name,Item] : Items) {
-        Item.Draw();
+        Item.Draws();
         DrawLineEx(Vector2{Item.Bounds.x,Item.Bounds.y},Vector2{Item.Bounds.x,Item.Bounds.y+Item.Bounds.height},Properties.BorderWidth,GetColor(Properties.BorderColor));
         DrawLineEx(Vector2{Item.Bounds.x+Item.Bounds.width,Item.Bounds.y},Vector2{Item.Bounds.x+Item.Bounds.width,Item.Bounds.y+Item.Bounds.height},Properties.BorderWidth,GetColor(Properties.BorderColor));
     }
-    
-    RestoreCurrentGuiStyle();
 }

@@ -1,3 +1,7 @@
+## raygui-widget history
+
+raygui-widgets born from raygui fork in October 2023. The aim is to create an easiest-to-use C++ cross-compiled gui library especially used in machine based user interface.
+
 ## raygui history
 
 raygui development started on December 2014 by two internship students (Kevin and Daniel) guided by me, objective was creating a simple and easy-to-use immediate-mode-gui module for raylib, intended for tools development. On June 2015, library was mostly functional (including basic controls) and we started working in the styling posibilities for the library, focusing on an easy way to style controls properties. Consequently, development of [rGuiStyler](https://raylibtech.itch.io/rguistyler) also started at that point... but resources were quite limited and project was stopped for several months, most of the time was invested in [raylib](https://github.com/raysan5/raylib) development.
@@ -15,7 +19,3 @@ On March 2019, the first set of new raygui tools was published: [rFXGen 2.0](htt
 From March 2019 to June 2019 raygui development decelerated, Sergio left the project and efforts were focused on raylib 2.5, during this time one external contributor, [Vlad Adrian](https://github.com/Demizdor), completely redesigned `GuiTextBox()` and related controls and version was bumped to raygui 2.5.
 
 During summer 2019 lots of raygui functions were reviewed, breaking compatibility to any previous version and pointing to a **raygui 2.6** update.
-
-## raygui-widgets history
-
-raygui-widgets born from raygui fork in October 2023. The aim is to create an easiest-to-use C++ cross-compiled gui library especially used in machine based user interface.
