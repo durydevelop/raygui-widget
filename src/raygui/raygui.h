@@ -26,7 +26,7 @@
 *   NOTES:
 *       - WARNING: GuiLoadStyle() and GuiLoadStyle{Custom}() functions, allocate memory for
 *         font atlas recs and glyphs, freeing that memory is (usually) up to the user,
-*         no unload function is explicitly provided... but note that GuiLoadStyleDefaulf() unloads
+*         no unload function is explicitly provided... but note that GuiLoadStyleDefault() unloads
 *         by default any previously loaded font (texture, recs, glyphs).
 *       - Global UI alpha (guiAlpha) is applied inside GuiDrawRectangle() and GuiDrawText() functions
 *
@@ -317,9 +317,9 @@
 #define RAYGUI_H
 
 #define RAYGUI_VERSION_MAJOR 4
-#define RAYGUI_VERSION_MINOR 0
+#define RAYGUI_VERSION_MINOR 1
 #define RAYGUI_VERSION_PATCH 0
-#define RAYGUI_VERSION  "4.0"
+#define RAYGUI_VERSION  "4.1-dev"
 
 #if !defined(RAYGUI_STANDALONE)
     #include "raylib.h"
@@ -563,7 +563,7 @@ typedef enum {
     TEXT_ALIGNMENT_VERTICAL,    // Text vertical alignment inside text bounds (after border and padding)
     TEXT_WRAP_MODE              // Text wrap-mode inside text bounds
     //TEXT_DECORATION             // Text decoration: 0-None, 1-Underline, 2-Line-through, 3-Overline
-    //TEXT_DECORATION_THICK       // Text decoration line thikness
+    //TEXT_DECORATION_THICK       // Text decoration line thickness
 } GuiDefaultProperty;
 
 // Other possible text properties:
@@ -722,7 +722,9 @@ RAYGUIAPI int GuiComboBox(Rectangle bounds, const char *text, int *active);     
 RAYGUIAPI int GuiDropdownBox(Rectangle bounds, const char *text, int *active, bool editMode);          // Dropdown Box control
 RAYGUIAPI int GuiSpinner(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode); // Spinner control
 RAYGUIAPI int GuiValueBox(Rectangle bounds, const char *text, int *value, int minValue, int maxValue, bool editMode); // Value Box control, updates input text with numbers
-RAYGUIAPI int GuiTextBox(Rectangle bounds, char *text, int textSize, bool editMode);                   // Text Box control, updates input text
+RAYGUIAPI int GuiValueBoxFloat(Rectangle bounds, const char* text, char *textValue, float *value, bool editMode);       // Value box control for float values
+RAYGUIAPI int GuiTextBox(Rectangle bounds, char *text, int textSize, bool editMode);                      // Text Box control, updates input text
+RAYGUIAPI int GuiTextBoxMasked(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode); // Text Box control for password mode. N.B. mainBuff is for masked view, real text is stored in shadowBuff
 
 RAYGUIAPI int GuiSlider(Rectangle bounds, const char *textLeft, const char *textRight, float *value, float minValue, float maxValue); // Slider control
 RAYGUIAPI int GuiSliderBar(Rectangle bounds, const char *textLeft, const char *textRight, float *value, float minValue, float maxValue); // Slider Bar control
@@ -1327,7 +1329,7 @@ static unsigned int guiIcons[RAYGUI_ICON_MAX_ICONS*RAYGUI_ICON_DATA_ELEMENTS] = 
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x00000000,      // ICON_255
 };
 
-// NOTE: We keep a pointer to the icons array, useful to point to other sets if required
+// NOTE: A pointer to current icons array should be defined
 static unsigned int *guiIconsPtr = guiIcons;
 
 #endif      // !RAYGUI_NO_ICONS && !RAYGUI_CUSTOM_ICONS
@@ -1366,6 +1368,7 @@ static bool guiControlExclusiveMode = false;    // Gui control exclusive mode (n
 static Rectangle guiControlExclusiveRec = { 0 }; // Gui control exclusive bounds rectangle, used as an unique identifier
 
 static int textBoxCursorIndex = 0;              // Cursor index, shared by all GuiTextBox*()
+static int textBoxShadowCursorIndex = 0;        // Cursor index in password mode, shared by all GuiTextBox*()
 //static int blinkCursorFrameCounter = 0;       // Frame counter for cursor blinking
 static int autoCursorCooldownCounter = 0;       // Cooldown frame counter for automatic cursor movement on key-down
 static int autoCursorDelayCounter = 0;          // Delay frame counter for automatic cursor movement
@@ -1449,6 +1452,7 @@ static bool CheckCollisionPointRec(Vector2 point, Rectangle rec);   // Check if 
 static const char *TextFormat(const char *text, ...);               // Formatting of text with variables to 'embed'
 static const char **TextSplit(const char *text, char delimiter, int *count);    // Split text into multiple strings
 static int TextToInteger(const char *text);         // Get integer value from text
+static float TextToFloat(const char *text);         // Get float value from text
 
 static int GetCodepointNext(const char *text, int *codepointSize);  // Get next codepoint in a UTF-8 encoded text
 static const char *CodepointToUTF8(int codepoint, int *byteSize);   // Encode codepoint into UTF-8 text (char array size returned as parameter)
@@ -1743,6 +1747,9 @@ int GuiTabBar(Rectangle bounds, const char **text, int count, int *active)
                 if (toggle) *active = i;
             }
 
+            // Close tab with middle mouse button pressed
+            if (CheckCollisionPointRec(GetMousePosition(), tabBounds) && IsMouseButtonPressed(MOUSE_MIDDLE_BUTTON)) result = i;
+
             GuiSetStyle(TOGGLE, TEXT_PADDING, textPadding);
             GuiSetStyle(TOGGLE, TEXT_ALIGNMENT, textAlignment);
 
@@ -1774,10 +1781,10 @@ int GuiScrollPanel(Rectangle bounds, const char *text, Rectangle content, Vector
 {
     #define RAYGUI_MIN_SCROLLBAR_WIDTH     40
     #define RAYGUI_MIN_SCROLLBAR_HEIGHT    40
+    #define RAYGUI_MIN_MOUSE_WHEEL_SPEED   20
 
     int result = 0;
     GuiState state = guiState;
-    float mouseWheelSpeed = 20.0f;      // Default movement speed with mouse wheel
 
     Rectangle temp = { 0 };
     if (view == NULL) view = &temp;
@@ -1819,17 +1826,8 @@ int GuiScrollPanel(Rectangle bounds, const char *text, Rectangle content, Vector
     };
 
     // Make sure scroll bars have a minimum width/height
-    // NOTE: If content >>> bounds, size could be very small or even 0
-    if (horizontalScrollBar.width < RAYGUI_MIN_SCROLLBAR_WIDTH)
-    {
-        horizontalScrollBar.width = RAYGUI_MIN_SCROLLBAR_WIDTH;
-        mouseWheelSpeed = 30.0f;    // TODO: Calculate speed increment based on content.height vs bounds.height
-    }
-    if (verticalScrollBar.height < RAYGUI_MIN_SCROLLBAR_HEIGHT)
-    {
-        verticalScrollBar.height = RAYGUI_MIN_SCROLLBAR_HEIGHT;
-        mouseWheelSpeed = 30.0f;    // TODO: Calculate speed increment based on content.width vs bounds.width
-    }
+    if (horizontalScrollBar.width < RAYGUI_MIN_SCROLLBAR_WIDTH) horizontalScrollBar.width = RAYGUI_MIN_SCROLLBAR_WIDTH;
+    if (verticalScrollBar.height < RAYGUI_MIN_SCROLLBAR_HEIGHT) verticalScrollBar.height = RAYGUI_MIN_SCROLLBAR_HEIGHT;
 
     // Calculate view area (area without the scrollbars)
     *view = (GuiGetStyle(LISTVIEW, SCROLLBAR_SIDE) == SCROLLBAR_LEFT_SIDE)?
@@ -1872,9 +1870,14 @@ int GuiScrollPanel(Rectangle bounds, const char *text, Rectangle content, Vector
 #endif
             float wheelMove = GetMouseWheelMove();
 
+            // Set scrolling speed with mouse wheel based on ratio between bounds and content
+            Vector2 mouseWheelSpeed = { content.width / bounds.width, content.height / bounds.height };
+            if (mouseWheelSpeed.x < RAYGUI_MIN_MOUSE_WHEEL_SPEED) mouseWheelSpeed.x = RAYGUI_MIN_MOUSE_WHEEL_SPEED;
+            if (mouseWheelSpeed.y < RAYGUI_MIN_MOUSE_WHEEL_SPEED) mouseWheelSpeed.y = RAYGUI_MIN_MOUSE_WHEEL_SPEED;
+
             // Horizontal and vertical scrolling with mouse wheel
-            if (hasHorizontalScrollBar && (IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_LEFT_SHIFT))) scrollPos.x += wheelMove*mouseWheelSpeed;
-            else scrollPos.y += wheelMove*mouseWheelSpeed; // Vertical scroll
+            if (hasHorizontalScrollBar && (IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_LEFT_SHIFT))) scrollPos.x += wheelMove*mouseWheelSpeed.x;
+            else scrollPos.y += wheelMove*mouseWheelSpeed.y; // Vertical scroll
         }
     }
 
@@ -2439,7 +2442,14 @@ int GuiDropdownBox(Rectangle bounds, const char *text, int *active, bool editMod
 
 // Text Box control
 // NOTE: Returns true on ENTER pressed (useful for data validation)
-int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
+int GuiTextBox(Rectangle bounds, char *text, int textSize, bool editMode)
+{
+    return GuiTextBoxMasked(bounds, text, NULL, textSize, editMode);
+}
+
+// Text Box control
+// NOTE: Returns true on ENTER pressed (useful for data validation)
+int GuiTextBoxMasked(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode)
 {
     #if !defined(RAYGUI_TEXTBOX_AUTO_CURSOR_COOLDOWN)
         #define RAYGUI_TEXTBOX_AUTO_CURSOR_COOLDOWN  40        // Frames to wait for autocursor movement
@@ -2455,7 +2465,7 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
     int wrapMode = GuiGetStyle(DEFAULT, TEXT_WRAP_MODE);
 
     Rectangle textBounds = GetTextBounds(TEXTBOX, bounds);
-    int textWidth = GetTextWidth(text) - GetTextWidth(text + textBoxCursorIndex);
+    int textWidth = GetTextWidth(mainBuff) - GetTextWidth(mainBuff + textBoxCursorIndex);
     int textIndexOffset = 0;    // Text index offset to start drawing in the box
 
     // Cursor rectangle
@@ -2509,38 +2519,71 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
             while (textWidth >= textBounds.width)
             {
                 int nextCodepointSize = 0;
-                GetCodepointNext(text + textIndexOffset, &nextCodepointSize);
+                GetCodepointNext(mainBuff + textIndexOffset, &nextCodepointSize);
 
                 textIndexOffset += nextCodepointSize;
 
-                textWidth = GetTextWidth(text + textIndexOffset) - GetTextWidth(text + textBoxCursorIndex);
+                textWidth = GetTextWidth(mainBuff + textIndexOffset) - GetTextWidth(mainBuff + textBoxCursorIndex);
             }
 
-            int textLength = (int)strlen(text);     // Get current text length
+            // Get current text length
+            int textLength = (int)strlen(mainBuff);
+            int shadowLength = shadowBuff ? (int)strlen(shadowBuff) : 0; // Does not care in normal mode
+
             int codepoint = GetCharPressed();       // Get Unicode codepoint
             if (multiline && IsKeyPressed(KEY_ENTER)) codepoint = (int)'\n';
 
-            if (textBoxCursorIndex > textLength) textBoxCursorIndex = textLength;
+            if (textBoxCursorIndex > textLength)
+            {
+                textBoxCursorIndex = textLength;
+                textBoxShadowCursorIndex = shadowBuff ? shadowLength : 0;
+            }
 
-            // Encode codepoint as UTF-8
+            // Encode codepobbint as UTF-8
             int codepointSize = 0;
             const char *charEncoded = CodepointToUTF8(codepoint, &codepointSize);
 
             // Add codepoint to text, at current cursor position
             // NOTE: Make sure we do not overflow buffer size
-            if (((multiline && (codepoint == (int)'\n')) || (codepoint >= 32)) && ((textLength + codepointSize) < bufferSize))
+            if (((multiline && (codepoint == (int)'\n')) || (codepoint >= 32)) && ((textLength + codepointSize) < textSize))
             {
-                // Move forward data from cursor position
-                for (int i = (textLength + codepointSize); i > textBoxCursorIndex; i--) text[i] = text[i - codepointSize];
+                if (!shadowBuff) // Normal mode
+                { 
+                    // Move forward data from cursor position
+                    for (int i = (textLength + codepointSize); i > textBoxCursorIndex; i--) mainBuff[i] = mainBuff[i - codepointSize];
 
-                // Add new codepoint in current cursor position
-                for (int i = 0; i < codepointSize; i++) text[textBoxCursorIndex + i] = charEncoded[i];
+                    // Add new codepoint in current cursor position
+                    for (int i = 0; i < codepointSize; i++) mainBuff[textBoxCursorIndex + i] = charEncoded[i];
 
-                textBoxCursorIndex += codepointSize;
-                textLength += codepointSize;
+                    textBoxCursorIndex += codepointSize;
+                    textLength += codepointSize;
+                    
+                    // Make sure text last character is EOL
+                    mainBuff[textLength] = '\0';
+                }
+                else // Password mode
+                {
+                    // ** shadowBuff **
+                    // Move forward data from cursor position
+                    for (int i = (shadowLength + codepointSize); i > textBoxShadowCursorIndex; i--) shadowBuff[i] = shadowBuff[i - codepointSize];
 
-                // Make sure text last character is EOL
-                text[textLength] = '\0';
+                    // Add new codepoint in current cursor position
+                    for (int i = 0; i < codepointSize; i++) shadowBuff[textBoxShadowCursorIndex + i] = charEncoded[i];
+
+                    textBoxShadowCursorIndex += codepointSize;
+                    shadowLength += codepointSize;
+                    
+                    // Make sure text last character is EOL
+                    shadowBuff[shadowLength] = '\0';
+
+                    // ** mainBuff **
+                    // Only '*' for view, not need to move data (are all '*')
+                    mainBuff[textBoxCursorIndex] = '*';
+                    textBoxCursorIndex++;
+                    textLength++;
+                    // Make sure text last character is EOL
+                    mainBuff[textLength] = '\0';
+                }
             }
 
             // Move cursor to start
@@ -2556,16 +2599,40 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 
                 if (IsKeyPressed(KEY_DELETE) || (autoCursorDelayCounter%RAYGUI_TEXTBOX_AUTO_CURSOR_DELAY) == 0)      // Delay every movement some frames
                 {
-                    int nextCodepointSize = 0;
-                    GetCodepointNext(text + textBoxCursorIndex, &nextCodepointSize);
+                    if (!shadowBuff) // Normal mode
+                    {
+                        int nextCodepointSize = 0;
+                        GetCodepointNext(mainBuff + textBoxCursorIndex, &nextCodepointSize);
 
-                    // Move backward text from cursor position
-                    for (int i = textBoxCursorIndex; i < textLength; i++) text[i] = text[i + nextCodepointSize];
+                        // Move backward text from cursor position
+                        for (int i = textBoxCursorIndex; i < textLength; i++) mainBuff[i] = mainBuff[i + nextCodepointSize];
 
-                    textLength -= codepointSize;
+                        textLength -= codepointSize;
 
-                    // Make sure text last character is EOL
-                    text[textLength] = '\0';
+                        // Make sure text last character is EOL
+                        mainBuff[textLength] = '\0';
+                    }
+                    else // Password mode
+                    {
+                        // ** shadowBuff **
+                        int nextCodepointSize = 0;
+                        GetCodepointNext(shadowBuff + textBoxShadowCursorIndex, &nextCodepointSize);
+
+                        // Move backward text from cursor position
+                        for (int i = textBoxShadowCursorIndex; i < shadowLength; i++) shadowBuff[i] = shadowBuff[i + nextCodepointSize];
+
+                        shadowLength -= codepointSize;
+
+                        // Make sure text last character is EOL
+                        shadowBuff[shadowLength] = '\0';
+
+                        // ** mainBuff **
+                        // only cut 1 byte
+                        textBoxCursorIndex--;
+                        textLength--;
+                        // Make sure text last character is EOL
+                        mainBuff[textLength] = '\0';
+                    }
                 }
             }
 
@@ -2576,21 +2643,50 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 
                 if (IsKeyPressed(KEY_BACKSPACE) || (autoCursorDelayCounter%RAYGUI_TEXTBOX_AUTO_CURSOR_DELAY) == 0)      // Delay every movement some frames
                 {
-                    int prevCodepointSize = 0;
-                    GetCodepointPrevious(text + textBoxCursorIndex, &prevCodepointSize);
-
-                    // Move backward text from cursor position
-                    for (int i = (textBoxCursorIndex - prevCodepointSize); i < textLength; i++) text[i] = text[i + prevCodepointSize];
-
-                    // Prevent cursor index from decrementing past 0
-                    if (textBoxCursorIndex > 0)
+                    if (!shadowBuff) // Normal mode
                     {
-                        textBoxCursorIndex -= codepointSize;
-                        textLength -= codepointSize;
-                    }
+                        int prevCodepointSize = 0;
+                        GetCodepointPrevious(mainBuff + textBoxCursorIndex, &prevCodepointSize);
 
-                    // Make sure text last character is EOL
-                    text[textLength] = '\0';
+                        // Move backward text from cursor position
+                        for (int i = (textBoxCursorIndex - prevCodepointSize); i < textLength; i++) mainBuff[i] = mainBuff[i + prevCodepointSize];
+
+                        // Prevent cursor index from decrementing past 0
+                        if (textBoxCursorIndex > 0)
+                        {
+                            textBoxCursorIndex -= codepointSize;
+                            textLength -= codepointSize;
+                        }
+
+                        // Make sure text last character is EOL
+                        mainBuff[textLength] = '\0';
+                    }
+                    else // Password Mode
+                    {
+                        // ** shadowBuff **
+                        int prevCodepointSize = 0;
+                        GetCodepointPrevious(shadowBuff + textBoxShadowCursorIndex, &prevCodepointSize);
+
+                        // Move backward text from cursor position
+                        for (int i = (textBoxShadowCursorIndex - prevCodepointSize); i < shadowLength; i++) shadowBuff[i] = shadowBuff[i + prevCodepointSize];
+
+                        // Prevent cursor index from decrementing past 0
+                        if (textBoxShadowCursorIndex > 0)
+                        {
+                            textBoxShadowCursorIndex -= codepointSize;
+                            shadowLength -= codepointSize;
+                        }
+
+                        // Make sure text last character is EOL
+                        shadowBuff[textLength] = '\0';
+
+                        // ** mainBuff **
+                        // only cut 1 byte
+                        textBoxCursorIndex--;
+                        textLength--;
+                        // Make sure text last character is EOL
+                        mainBuff[textLength] = '\0';
+                    }
                 }
             }
 
@@ -2601,10 +2697,24 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 
                 if (IsKeyPressed(KEY_LEFT) || (autoCursorDelayCounter%RAYGUI_TEXTBOX_AUTO_CURSOR_DELAY) == 0)      // Delay every movement some frames
                 {
-                    int prevCodepointSize = 0;
-                    GetCodepointPrevious(text + textBoxCursorIndex, &prevCodepointSize);
+                    if (!shadowBuff) // Normal mode
+                    {
+                        int prevCodepointSize = 0;
+                        GetCodepointPrevious(mainBuff + textBoxCursorIndex, &prevCodepointSize);
 
-                    if (textBoxCursorIndex >= prevCodepointSize) textBoxCursorIndex -= prevCodepointSize;
+                        if (textBoxCursorIndex >= prevCodepointSize) textBoxCursorIndex -= prevCodepointSize;
+                    }
+                    else // Password mode
+                    {
+                        // ** shadowBuff **
+                        int prevCodepointSize = 0;
+                        GetCodepointPrevious(shadowBuff + textBoxShadowCursorIndex, &prevCodepointSize);
+
+                        if (textBoxShadowCursorIndex >= prevCodepointSize) textBoxShadowCursorIndex -= prevCodepointSize;
+
+                        // ** mainBuff **
+                        if (textBoxCursorIndex >= 0) textBoxCursorIndex --;
+                    }
                 }
             }
             else if (IsKeyPressed(KEY_RIGHT) || (IsKeyDown(KEY_RIGHT) && (autoCursorCooldownCounter > RAYGUI_TEXTBOX_AUTO_CURSOR_COOLDOWN)))
@@ -2613,10 +2723,24 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 
                 if (IsKeyPressed(KEY_RIGHT) || (autoCursorDelayCounter%RAYGUI_TEXTBOX_AUTO_CURSOR_DELAY) == 0)      // Delay every movement some frames
                 {
-                    int nextCodepointSize = 0;
-                    GetCodepointNext(text + textBoxCursorIndex, &nextCodepointSize);
+                    if (!shadowBuff) // Normal mode
+                    {
+                        int nextCodepointSize = 0;
+                        GetCodepointNext(mainBuff + textBoxCursorIndex, &nextCodepointSize);
 
-                    if ((textBoxCursorIndex + nextCodepointSize) <= textLength) textBoxCursorIndex += nextCodepointSize;
+                        if ((textBoxCursorIndex + nextCodepointSize) <= textLength) textBoxCursorIndex += nextCodepointSize;
+                    }
+                    else // Password mode
+                    {
+                        // ** ShadowBuff **
+                        int nextCodepointSize = 0;
+                        GetCodepointNext(shadowBuff + textBoxShadowCursorIndex, &nextCodepointSize);
+
+                        if ((textBoxShadowCursorIndex + nextCodepointSize) <= shadowLength) textBoxShadowCursorIndex += nextCodepointSize;
+
+                        // ** mainBuff **
+                        if ((textBoxCursorIndex + 1) <= textLength) textBoxCursorIndex ++;
+                    }
                 }
             }
 
@@ -2631,7 +2755,7 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 
                 for (int i = textIndexOffset; i < textLength; i++)
                 {
-                    codepoint = GetCodepointNext(&text[i], &codepointSize);
+                    codepoint = GetCodepointNext(&mainBuff[i], &codepointSize);
                     codepointIndex = GetGlyphIndex(guiFont, codepoint);
 
                     if (guiFont.glyphs[codepointIndex].advanceX == 0) glyphWidth = ((float)guiFont.recs[codepointIndex].width*scaleFactor);
@@ -2648,11 +2772,11 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
                 }
 
                 // Check if mouse cursor is at the last position
-                int textEndWidth = GetTextWidth(text + textIndexOffset);
+                int textEndWidth = GetTextWidth(mainBuff + textIndexOffset);
                 if (GetMousePosition().x >= (textBounds.x + textEndWidth - glyphWidth/2))
                 {
                     mouseCursor.x = textBounds.x + textEndWidth;
-                    mouseCursorIndex = (int)strlen(text);
+                    mouseCursorIndex = (int)strlen(mainBuff);
                 }
 
                 // Place cursor at required index on mouse click
@@ -2660,12 +2784,23 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
                 {
                     cursor.x = mouseCursor.x;
                     textBoxCursorIndex = mouseCursorIndex;
+                    if (shadowBuff) // Password mode
+                    {
+                        // Calculate index position in shadowBuff
+                        int nextCodepointSize = 0;
+                        int shadowIndex=0;
+                        for (int i = 0; i < mouseCursorIndex; i++){
+                            GetCodepointNext(mainBuff + textBoxCursorIndex, &nextCodepointSize);
+                            shadowIndex+=nextCodepointSize;
+                        }
+                        textBoxShadowCursorIndex = shadowIndex;
+                    }
                 }
             }
             else mouseCursor.x = -1;
 
             // Recalculate cursor position.y depending on textBoxCursorIndex
-            cursor.x = bounds.x + GuiGetStyle(TEXTBOX, TEXT_PADDING) + GetTextWidth(text + textIndexOffset) - GetTextWidth(text + textBoxCursorIndex) + GuiGetStyle(DEFAULT, TEXT_SPACING);
+            cursor.x = bounds.x + GuiGetStyle(TEXTBOX, TEXT_PADDING) + GetTextWidth(mainBuff + textIndexOffset) - GetTextWidth(mainBuff + textBoxCursorIndex) + GuiGetStyle(DEFAULT, TEXT_SPACING);
             //if (multiline) cursor.y = GetTextLines()
 
             // Finish text editing on ENTER or mouse click outside bounds
@@ -2684,7 +2819,7 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 
                 if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
                 {
-                    textBoxCursorIndex = (int)strlen(text);   // GLOBAL: Place cursor index to the end of current text
+                    textBoxCursorIndex = (int)strlen(mainBuff);   // GLOBAL: Place cursor index to the end of current text
                     result = 1;
                 }
             }
@@ -2706,7 +2841,7 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 
     // Draw text considering index offset if required
     // NOTE: Text index offset depends on cursor position
-    GuiDrawText(text + textIndexOffset, textBounds, GuiGetStyle(TEXTBOX, TEXT_ALIGNMENT), GetColor(GuiGetStyle(TEXTBOX, TEXT + (state*3))));
+    GuiDrawText(mainBuff + textIndexOffset, textBounds, GuiGetStyle(TEXTBOX, TEXT_ALIGNMENT), GetColor(GuiGetStyle(TEXTBOX, TEXT + (state*3))));
 
     // Draw cursor
     if (editMode && !GuiGetStyle(TEXTBOX, TEXT_READONLY))
@@ -2726,7 +2861,7 @@ int GuiTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode)
 /*
 // Text Box control with multiple lines and word-wrap
 // NOTE: This text-box is readonly, no editing supported by default
-bool GuiTextBoxMulti(Rectangle bounds, char *text, int bufferSize, bool editMode)
+bool GuiTextBoxMulti(Rectangle bounds, char *text, int textSize, bool editMode)
 {
     bool pressed = false;
 
@@ -2735,7 +2870,7 @@ bool GuiTextBoxMulti(Rectangle bounds, char *text, int bufferSize, bool editMode
     GuiSetStyle(DEFAULT, TEXT_ALIGNMENT_VERTICAL, TEXT_ALIGN_TOP);
 
     // TODO: Implement methods to calculate cursor position properly
-    pressed = GuiTextBox(bounds, text, bufferSize, editMode);
+    pressed = GuiTextBox(bounds, text, textSize, editMode);
 
     GuiSetStyle(DEFAULT, TEXT_ALIGNMENT_VERTICAL, TEXT_ALIGN_MIDDLE);
     GuiSetStyle(DEFAULT, TEXT_WRAP_MODE, TEXT_WRAP_NONE);
@@ -2935,16 +3070,127 @@ int GuiValueBox(Rectangle bounds, const char *text, int *value, int minValue, in
     return result;
 }
 
+// Floating point Value Box control, updates input val_str with numbers
+// NOTE: Requires static variables: frameCounter
+int GuiValueBoxFloat(Rectangle bounds, const char *text, char *textValue, float *value, bool editMode)
+{
+    #if !defined(RAYGUI_VALUEBOX_MAX_CHARS)
+        #define RAYGUI_VALUEBOX_MAX_CHARS  32
+    #endif
+
+    int result = 0;
+    GuiState state = guiState;
+    
+    //char textValue[RAYGUI_VALUEBOX_MAX_CHARS + 1] = "\0";
+    //sprintf(textValue, "%2.2f", *value);
+
+    Rectangle textBounds = {0};
+    if (text != NULL)
+    {
+        textBounds.width = (float)GetTextWidth(text) + 2;
+        textBounds.height = (float)GuiGetStyle(DEFAULT, TEXT_SIZE);
+        textBounds.x = bounds.x + bounds.width + GuiGetStyle(VALUEBOX, TEXT_PADDING);
+        textBounds.y = bounds.y + bounds.height/2 - GuiGetStyle(DEFAULT, TEXT_SIZE)/2;
+        if (GuiGetStyle(VALUEBOX, TEXT_ALIGNMENT) == TEXT_ALIGN_LEFT) textBounds.x = bounds.x - textBounds.width - GuiGetStyle(VALUEBOX, TEXT_PADDING);
+    }
+
+    // Update control
+    //--------------------------------------------------------------------
+    if ((state != STATE_DISABLED) && !guiLocked && !guiControlExclusiveMode)
+    {
+        Vector2 mousePoint = GetMousePosition();
+
+        bool valueHasChanged = false;
+
+        if (editMode)
+        {
+            state = STATE_PRESSED;
+
+            int keyCount = (int)strlen(textValue);
+
+            // Only allow keys in range [48..57]
+            if (keyCount < RAYGUI_VALUEBOX_MAX_CHARS)
+            {
+                if (GetTextWidth(textValue) < bounds.width)
+                {
+                    int key = GetCharPressed();
+                    if (((key >= 48) && (key <= 57)) || 
+                        (key == '.') || 
+                        ((keyCount == 0) && (key == '+')) ||  // NOTE: Sign can only be in first position
+                        ((keyCount == 0) && (key == '-')))
+                    {
+                        textValue[keyCount] = (char)key;
+                        keyCount++;
+                        
+                        valueHasChanged = true;
+                    }
+                }
+            }
+
+            // Pressed backspace
+            if (IsKeyPressed(KEY_BACKSPACE))
+            {
+                if (keyCount > 0)
+                {
+                    keyCount--;
+                    textValue[keyCount] = '\0';
+                    valueHasChanged = true;
+                }
+            }
+
+            if (valueHasChanged) *value = TextToFloat(textValue);
+
+            if (IsKeyPressed(KEY_ENTER) || (!CheckCollisionPointRec(mousePoint, bounds) && IsMouseButtonPressed(MOUSE_LEFT_BUTTON))) result = 1;
+        }
+        else
+        {
+            if (CheckCollisionPointRec(mousePoint, bounds))
+            {
+                state = STATE_FOCUSED;
+                if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) result = 1;
+            }
+        }
+    }
+    //--------------------------------------------------------------------
+
+    // Draw control
+    //--------------------------------------------------------------------
+    Color baseColor = BLANK;
+    if (state == STATE_PRESSED) baseColor = GetColor(GuiGetStyle(VALUEBOX, BASE_COLOR_PRESSED));
+    else if (state == STATE_DISABLED) baseColor = GetColor(GuiGetStyle(VALUEBOX, BASE_COLOR_DISABLED));
+
+    GuiDrawRectangle(bounds, GuiGetStyle(VALUEBOX, BORDER_WIDTH), GetColor(GuiGetStyle(VALUEBOX, BORDER + (state*3))), baseColor);
+    GuiDrawText(textValue, GetTextBounds(VALUEBOX, bounds), TEXT_ALIGN_CENTER, GetColor(GuiGetStyle(VALUEBOX, TEXT + (state*3))));
+
+    // Draw cursor
+    if (editMode)
+    {
+        // NOTE: ValueBox internal text is always centered
+        Rectangle cursor = {bounds.x + GetTextWidth(textValue)/2 + bounds.width/2 + 1,
+                            bounds.y + 2*GuiGetStyle(VALUEBOX, BORDER_WIDTH), 4,
+                            bounds.height - 4*GuiGetStyle(VALUEBOX, BORDER_WIDTH)};
+        GuiDrawRectangle(cursor, 0, BLANK, GetColor(GuiGetStyle(VALUEBOX, BORDER_COLOR_PRESSED)));
+    }
+
+    // Draw text label if provided
+    GuiDrawText(text, textBounds,
+                (GuiGetStyle(VALUEBOX, TEXT_ALIGNMENT) == TEXT_ALIGN_RIGHT)? TEXT_ALIGN_LEFT : TEXT_ALIGN_RIGHT,
+                GetColor(GuiGetStyle(LABEL, TEXT + (state*3))));
+    //--------------------------------------------------------------------
+
+    return result;
+}
+
 // Slider control with pro parameters
 // NOTE: Other GuiSlider*() controls use this one
 int GuiSliderPro(Rectangle bounds, const char *textLeft, const char *textRight, float *value, float minValue, float maxValue, int sliderWidth)
 {
     int result = 0;
-    float oldValue = *value;
     GuiState state = guiState;
 
     float temp = (maxValue - minValue)/2.0f;
     if (value == NULL) value = &temp;
+    float oldValue = *value;
 
     Rectangle slider = { bounds.x, bounds.y + GuiGetStyle(SLIDER, BORDER_WIDTH) + GuiGetStyle(SLIDER, SLIDER_PADDING),
                          0, bounds.height - 2*GuiGetStyle(SLIDER, BORDER_WIDTH) - 2*GuiGetStyle(SLIDER, SLIDER_PADDING) };
@@ -2992,13 +3238,13 @@ int GuiSliderPro(Rectangle bounds, const char *textLeft, const char *textRight, 
         if (*value > maxValue) *value = maxValue;
         else if (*value < minValue) *value = minValue;
     }
-    
+
     // Control value change check
-    if(oldValue == *value) result = 0;
+    if (oldValue == *value) result = 0;
     else result = 1;
 
     // Slider bar limits check
-    int sliderValue = (int)(((*value - minValue)/(maxValue - minValue))*(bounds.width - sliderWidth - GuiGetStyle(SLIDER, BORDER_WIDTH)));
+    float sliderValue = (((*value - minValue)/(maxValue - minValue))*(bounds.width - sliderWidth - 2*GuiGetStyle(SLIDER, BORDER_WIDTH)));
     if (sliderWidth > 0)        // Slider
     {
         slider.x += sliderValue;
@@ -3009,7 +3255,7 @@ int GuiSliderPro(Rectangle bounds, const char *textLeft, const char *textRight, 
     else if (sliderWidth == 0)  // SliderBar
     {
         slider.x += GuiGetStyle(SLIDER, BORDER_WIDTH);
-        slider.width = (float)sliderValue;
+        slider.width = sliderValue;
         if (slider.width > bounds.width) slider.width = bounds.width - 2*GuiGetStyle(SLIDER, BORDER_WIDTH);
     }
     //--------------------------------------------------------------------
@@ -3735,9 +3981,9 @@ int GuiMessageBox(Rectangle bounds, const char *title, const char *message, cons
     int textWidth = GetTextWidth(message) + 2;
 
     Rectangle textBounds = { 0 };
-    textBounds.x = bounds.x + bounds.width/2 - textWidth/2;
+    textBounds.x = bounds.x + RAYGUI_MESSAGEBOX_BUTTON_PADDING;
     textBounds.y = bounds.y + RAYGUI_WINDOWBOX_STATUSBAR_HEIGHT + RAYGUI_MESSAGEBOX_BUTTON_PADDING;
-    textBounds.width = (float)textWidth;
+    textBounds.width = bounds.width - RAYGUI_MESSAGEBOX_BUTTON_PADDING*2;
     textBounds.height = bounds.height - RAYGUI_WINDOWBOX_STATUSBAR_HEIGHT - 3*RAYGUI_MESSAGEBOX_BUTTON_PADDING - RAYGUI_MESSAGEBOX_BUTTON_HEIGHT;
 
     // Draw control
@@ -3900,14 +4146,14 @@ int GuiGrid(Rectangle bounds, const char *text, float spacing, int subdivs, Vect
         // Draw vertical grid lines
         for (int i = 0; i < linesV; i++)
         {
-            Rectangle lineV = { bounds.x + spacing*i/subdivs, bounds.y, 1, bounds.height };
+            Rectangle lineV = { bounds.x + spacing*i/subdivs, bounds.y, 1, bounds.height + 1 };
             GuiDrawRectangle(lineV, 0, BLANK, ((i%subdivs) == 0)? GuiFade(GetColor(color), RAYGUI_GRID_ALPHA*4) : GuiFade(GetColor(color), RAYGUI_GRID_ALPHA));
         }
 
         // Draw horizontal grid lines
         for (int i = 0; i < linesH; i++)
         {
-            Rectangle lineH = { bounds.x, bounds.y + spacing*i/subdivs, bounds.width, 1 };
+            Rectangle lineH = { bounds.x, bounds.y + spacing*i/subdivs, bounds.width + 1, 1 };
             GuiDrawRectangle(lineH, 0, BLANK, ((i%subdivs) == 0)? GuiFade(GetColor(color), RAYGUI_GRID_ALPHA*4) : GuiFade(GetColor(color), RAYGUI_GRID_ALPHA));
         }
     }
@@ -3941,6 +4187,7 @@ void GuiLoadStyle(const char *fileName)
     #define MAX_LINE_BUFFER_SIZE    256
 
     bool tryBinary = false;
+    if (!guiStyleLoaded) GuiLoadStyleDefault();
 
     // Try reading the files as text file first
     FILE *rgsFile = fopen(fileName, "rt");
@@ -4797,8 +5044,8 @@ static void GuiDrawText(const char *text, Rectangle textBounds, int alignment, C
         {
             // NOTE: We consider icon height, probably different than text size
             GuiDrawIcon(iconId, (int)textBoundsPosition.x, (int)(textBounds.y + textBounds.height/2 - RAYGUI_ICON_SIZE*guiIconScale/2 + TEXT_VALIGN_PIXEL_OFFSET(textBounds.height)), guiIconScale, tint);
-            textBoundsPosition.x += (RAYGUI_ICON_SIZE*guiIconScale + ICON_TEXT_PADDING);
-            textBoundsWidthOffset = (RAYGUI_ICON_SIZE*guiIconScale + ICON_TEXT_PADDING);
+            textBoundsPosition.x += (float)(RAYGUI_ICON_SIZE*guiIconScale + ICON_TEXT_PADDING);
+            textBoundsWidthOffset = (float)(RAYGUI_ICON_SIZE*guiIconScale + ICON_TEXT_PADDING);
         }
 #endif
         // Get size in bytes of text,
@@ -4814,7 +5061,7 @@ static void GuiDrawText(const char *text, Rectangle textBounds, int alignment, C
         float textOffsetX = 0.0f;
         float glyphWidth = 0;
 
-        float ellipsisWidth = GetTextWidth("...");
+        int ellipsisWidth = GetTextWidth("...");
         bool overflowReached = false;
         for (int c = 0, codepointSize = 0; c < lineSize; c += codepointSize)
         {
@@ -4829,7 +5076,7 @@ static void GuiDrawText(const char *text, Rectangle textBounds, int alignment, C
             if (guiFont.glyphs[index].advanceX == 0) glyphWidth = ((float)guiFont.recs[index].width*scaleFactor);
             else glyphWidth = (float)guiFont.glyphs[index].advanceX*scaleFactor;
 
-            // Wrap mode text measuring, to validate if 
+            // Wrap mode text measuring, to validate if
             // it can be drawn or a new line is required
             if (wrapMode == TEXT_WRAP_CHAR)
             {
@@ -4889,7 +5136,9 @@ static void GuiDrawText(const char *text, Rectangle textBounds, int alignment, C
                             else if (!overflowReached)
                             {
                                 overflowReached = true;
-                                for (int j = 0; j < ellipsisWidth; j += ellipsisWidth/3) {
+
+                                for (int j = 0; j < ellipsisWidth; j += ellipsisWidth/3)
+                                {
                                     DrawTextCodepoint(guiFont, '.', RAYGUI_CLITERAL(Vector2){ textBoundsPosition.x + textOffsetX + j, textBoundsPosition.y + textOffsetY }, (float)GuiGetStyle(DEFAULT, TEXT_SIZE), GuiFade(tint, guiAlpha));
                                 }
                             }
@@ -5016,7 +5265,7 @@ static const char **GuiTextSplit(const char *text, char delimiter, int *count, i
             buffer[i] = '\0';   // Set an end of string at this point
 
             counter++;
-            if (counter == RAYGUI_TEXTSPLIT_MAX_ITEMS) break;
+            if (counter > RAYGUI_TEXTSPLIT_MAX_ITEMS) break;
         }
     }
 
@@ -5176,8 +5425,11 @@ static int GuiScrollBar(Rectangle bounds, int value, int minValue, int maxValue)
     if (value > maxValue) value = maxValue;
     if (value < minValue) value = minValue;
 
-    const int valueRange = maxValue - minValue;
+    int valueRange = maxValue - minValue;
+    if (valueRange <= 0) valueRange = 1;
+
     int sliderSize = GuiGetStyle(SCROLLBAR, SCROLL_SLIDER_SIZE);
+    if (sliderSize < 1) sliderSize = 1;  // TODO: Consider a minimum slider size
 
     // Calculate rectangles for all of the components
     arrowUpLeft = RAYGUI_CLITERAL(Rectangle){
@@ -5450,6 +5702,37 @@ static int TextToInteger(const char *text)
     return value*sign;
 }
 
+// Get float value from text
+// NOTE: This function replaces atof() [stdlib.h]
+// WARNING: Only '.' character is understood as decimal point
+static float TextToFloat(const char *text)
+{
+    float value = 0.0f;
+    float sign = 1.0f;
+
+    if ((text[0] == '+') || (text[0] == '-'))
+    {
+        if (text[0] == '-') sign = -1.0f;
+        text++;
+    }
+
+    int i = 0;
+    for (; ((text[i] >= '0') && (text[i] <= '9')); i++) value = value*10.0f + (float)(text[i] - '0');
+
+    if (text[i++] != '.') value *= sign;
+    else
+    {
+        float divisor = 10.0f;
+        for (; ((text[i] >= '0') && (text[i] <= '9')); i++)
+        {
+            value += ((float)(text[i] - '0'))/divisor;
+            divisor = divisor*10.0f;
+        }
+    }
+    
+    return value;
+}
+
 // Encode codepoint into UTF-8 text (char array size returned as parameter)
 static const char *CodepointToUTF8(int codepoint, int *byteSize)
 {
@@ -5503,21 +5786,21 @@ static int GetCodepointNext(const char *text, int *codepointSize)
     if (0xf0 == (0xf8 & ptr[0]))
     {
         // 4 byte UTF-8 codepoint
-        if(((ptr[1] & 0xC0) ^ 0x80) || ((ptr[2] & 0xC0) ^ 0x80) || ((ptr[3] & 0xC0) ^ 0x80)) { return codepoint; } //10xxxxxx checks
+        if (((ptr[1] & 0xC0) ^ 0x80) || ((ptr[2] & 0xC0) ^ 0x80) || ((ptr[3] & 0xC0) ^ 0x80)) { return codepoint; } //10xxxxxx checks
         codepoint = ((0x07 & ptr[0]) << 18) | ((0x3f & ptr[1]) << 12) | ((0x3f & ptr[2]) << 6) | (0x3f & ptr[3]);
         *codepointSize = 4;
     }
     else if (0xe0 == (0xf0 & ptr[0]))
     {
         // 3 byte UTF-8 codepoint */
-        if(((ptr[1] & 0xC0) ^ 0x80) || ((ptr[2] & 0xC0) ^ 0x80)) { return codepoint; } //10xxxxxx checks
+        if (((ptr[1] & 0xC0) ^ 0x80) || ((ptr[2] & 0xC0) ^ 0x80)) { return codepoint; } //10xxxxxx checks
         codepoint = ((0x0f & ptr[0]) << 12) | ((0x3f & ptr[1]) << 6) | (0x3f & ptr[2]);
         *codepointSize = 3;
     }
     else if (0xc0 == (0xe0 & ptr[0]))
     {
         // 2 byte UTF-8 codepoint
-        if((ptr[1] & 0xC0) ^ 0x80) { return codepoint; } //10xxxxxx checks
+        if ((ptr[1] & 0xC0) ^ 0x80) { return codepoint; } //10xxxxxx checks
         codepoint = ((0x1f & ptr[0]) << 6) | (0x3f & ptr[1]);
         *codepointSize = 2;
     }

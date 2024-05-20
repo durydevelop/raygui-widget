@@ -8,6 +8,7 @@ class DGuiEdit : public DGuiWidget
     public:
         DGuiEdit(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget);
         DGuiEdit(Rectangle WidgetBounds, DGuiWidget *ParentWidget);
+        ~DGuiEdit();
 
         void SetMaxTextLenght(size_t Lenght);
         size_t GetMaxTextLenght(void);
@@ -19,17 +20,25 @@ class DGuiEdit : public DGuiWidget
         bool GetPasswordMode(void);
 
         void Draw() override;
-        int DrawTextBox(Rectangle bounds, char *text, int bufferSize, bool editMode);
+        
         const std::string& GetText(void) override;
-        char* GetEditText(void);
+        void SetText(std::string NewText) override;
+        char* GetTextPtr(void);
+
+        bool IsEmpty(void);
 
     private:
-        std::string Text; // overrided
-        size_t MaxTextLenght;
+        void Init(void);
+        int DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode);
+
+//        std::string Text; // overrided
+        size_t MaxTextLenght;   /// Max lenght of edit text
+        bool ReadOnly;          /// Read-only mode
+        bool PasswordMode;      /// When true viewBuff is masked with '*'.
+        char *viewBuff;         /// Buffer used for ui, if PasswordMode is false it is used also for realtext.
+        char *hideBuff;         /// In password mode used to store text.
+        int textBoxShadowCursorIndex;  /// In password mode used to keep trace of current cursor position.
         bool EditMode;
-        bool ReadOnly;
-        bool PasswordMode;
-        char* t; // Need a dedicated text buffer because DrawTextBox cannot handle std::string.
 
         //int DrawTextBox(Rectangle bounds, int bufferSize, bool editMode);
 };

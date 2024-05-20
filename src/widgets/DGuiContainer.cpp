@@ -37,12 +37,16 @@ DGuiContainer::DGuiContainer(Rectangle ContainerBounds, DGuiWidget *ParentWidget
 
 DGuiContainer::~DGuiContainer()
 {
-
+    Log(DLOG_DEBUG,"~DGuiContainer() %s %d children",Name.c_str(),Children.size());
+    for (auto [id,widget] : Children) {
+        //Log(DLOG_DEBUG,"delete %s",widget->Name.c_str());
+        delete widget;
+    }
 }
 
 void DGuiContainer::SetOnGuiEvent(OnGuiEventCallback Callback) {
-    for (auto &[Id,Widget] : Children) {
-        Widget->SetOnGuiEvent(Callback);
+    for (auto &[id,widget] : Children) {
+        widget->SetOnGuiEvent(Callback);
     }
 }
 

@@ -42,11 +42,6 @@ void DGuiLabel::ClearText(void) {
  */
 void DGuiLabel::Draw()
 {
-    BackupCurrentGuiStyle();
-    SetWidgetGuiStyle();
-
     DrawRectangle(Bounds.x,Bounds.y,Bounds.width,Bounds.height,GetColor(Properties.BackGroundColor));
     GuiLabel(Bounds,(TextPrefix+Text+TextSuffix).c_str());
-    
-    RestoreCurrentGuiStyle();
 }

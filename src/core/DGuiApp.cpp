@@ -12,7 +12,8 @@ DGuiApp::DGuiApp(size_t ScreenWidth, size_t ScreenHeight, std::string AppTitle)
     Title=AppTitle;
     ActiveContainer=nullptr;
     Running=false;
-    OnAppStartedCallback=nullptr;
+    GuiEventCallback=nullptr;
+    AppStartedCallback=nullptr;
 
     InitWindow(Width,Height,Title.c_str());
     /*
@@ -25,10 +26,16 @@ DGuiApp::DGuiApp(size_t ScreenWidth, size_t ScreenHeight, std::string AppTitle)
 
 DGuiApp::~DGuiApp()
 {
-    // TODO: Free Containers
-    // TODO: Free StaticWidgets
+    Log(DLOG_DEBUG,"~DGuiApp()");
     // Close window and OpenGL context
     CloseWindow();
+    for (auto [id,widget] : StaticWidgets) {
+        delete widget;
+    }
+
+    for (auto [id,container] : Containers) {
+        delete container;
+    }
 };
 
 bool DGuiApp::IsReady(void) {
@@ -43,22 +50,30 @@ DGuiContainer* DGuiApp::SetActiveContainer(std::string ContainerName)
 {
     auto Container=GetContainerFromName(ContainerName);
     if (!Container) {
-        Log(DLOG_ERROR,"Container %s not found",ContainerName);
+        Log(DLOG_ERROR,"Container %s not found",ContainerName.c_str());
         return nullptr;
     }
     ActiveContainer=Container;
     return ActiveContainer;
 }
 
-void DGuiApp::OnGuiEvent(OnGuiEventCallback Callback)
+void DGuiApp::SetOnGuiEvent(OnGuiEventCallback Callback)
 {
+    GuiEventCallback=Callback;
     for (auto &[Id,Container] : Containers) {
         Container->SetOnGuiEvent(Callback);
     }
+    for (auto &[Id,Widget] : StaticWidgets) {
+        Widget->SetOnGuiEvent(Callback);
+    }
 }
 
-void DGuiApp::OnAppStarted(std::function<void (void)> Callback) {
-    OnAppStartedCallback=Callback;
+void DGuiApp::SetOnAppStarted(std::function<void (void)> Callback) {
+    AppStartedCallback=Callback;
+}
+
+void DGuiApp::SetOnAppStopped(std::function<void (void)> Callback) {
+    AppStoppedCallback=Callback;
 }
 
 void DGuiApp::ClearScreen(void)
@@ -90,6 +105,7 @@ DGuiContainer* DGuiApp::AddContainer(DGuiContainer *NewContainer) {
         // Set it to active one if it is alone
         ActiveContainer=NewContainer;
     }
+    NewContainer->SetOnGuiEvent(GuiEventCallback);
     return NewContainer;
 }
 
@@ -111,6 +127,7 @@ DGuiWidget* DGuiApp::AddStaticWidgetFromFile(std::string JsonFilename) {
         Log(DLOG_ERROR,"%s layout possibile incorrect",JsonFilename.c_str());
         return nullptr;
     }
+    Widget->SetOnGuiEvent(GuiEventCallback);
 
     StaticWidgets.emplace(Widget->Name,Widget);
     return Widget;
@@ -142,8 +159,8 @@ DResult DGuiApp::Run(void)
     
     SetTargetFPS(60);
     Running=true;
-    if (OnAppStartedCallback) {
-        OnAppStartedCallback();
+    if (AppStartedCallback) {
+        AppStartedCallback();
     }
 
     // Main loop (detect window close button or ESC key)
@@ -162,5 +179,10 @@ DResult DGuiApp::Run(void)
     }
 
     Running=false;
+
+    if (AppStoppedCallback) {
+        AppStoppedCallback();
+    }
+    
     return Result;
 };
