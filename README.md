@@ -1,5 +1,9 @@
 <img align="left" src="logo/raygui_256x256.png" width=256>
 
+**This is a fork that add widget support.**
+
+** WARNING: it is under development**
+
 **raygui is a simple and easy-to-use immediate-mode-gui library.**
 
 `raygui` was originally inspired by [Unity IMGUI](https://docs.unity3d.com/Manual/GUIScriptingGuide.html) (immediate mode GUI API).
