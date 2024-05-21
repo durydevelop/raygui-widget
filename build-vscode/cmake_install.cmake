@@ -47,6 +47,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/src/cmake_install.cmake")
   include("/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/cmake_install.cmake")
   include("/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build/cmake_install.cmake")
+  include("/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/doxygen/cmake_install.cmake")
 
 endif()
 

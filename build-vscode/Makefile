@@ -107,7 +107,7 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target list_install_components
 list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\" \"doc\""
 .PHONY : list_install_components
 
 # Special rule for the target list_install_components
@@ -284,6 +284,19 @@ release: cmake_check_build_system
 release/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/dpplib-build/CMakeFiles/release.dir/build.make _deps/dpplib-build/CMakeFiles/release.dir/build
 .PHONY : release/fast
+
+#=============================================================================
+# Target rules for targets named doc
+
+# Build rule for target.
+doc: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 doc
+.PHONY : doc
+
+# fast build rule for target.
+doc/fast:
+	$(MAKE) $(MAKESILENT) -f doxygen/CMakeFiles/doc.dir/build.make doxygen/CMakeFiles/doc.dir/build
+.PHONY : doc/fast
 
 src/core/DGuiApp.o: src/core/DGuiApp.cpp.o
 .PHONY : src/core/DGuiApp.o
@@ -492,6 +505,7 @@ help:
 	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... debug"
+	@echo "... doc"
 	@echo "... release"
 	@echo "... uninstall"
 	@echo "... update_mappings"

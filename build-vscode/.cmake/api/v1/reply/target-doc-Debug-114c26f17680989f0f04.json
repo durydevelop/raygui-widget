@@ -1,16 +1,16 @@
 {
-	"backtrace" : 3,
+	"backtrace" : 2,
 	"backtraceGraph" : 
 	{
 		"commands" : 
 		[
 			"add_custom_target",
-			"include"
+			"doxygen_add_docs"
 		],
 		"files" : 
 		[
-			"build-vscode/_deps/dpplib-src/cmake/DMakeOptions.cmake",
-			"build-vscode/_deps/dpplib-src/CMakeLists.txt"
+			"/home/fabio/share/cmake-3.28/Modules/FindDoxygen.cmake",
+			"doxygen/CMakeLists.txt"
 		],
 		"nodes" : 
 		[
@@ -20,27 +20,23 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 157,
+				"line" : 120,
 				"parent" : 0
-			},
-			{
-				"file" : 0,
-				"parent" : 1
 			},
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 3,
-				"parent" : 2
+				"line" : 1208,
+				"parent" : 1
 			}
 		]
 	},
-	"id" : "debug::@f20ea80c57ed53a14c63",
-	"name" : "debug",
+	"id" : "doc::@d8045343aaeb59ce4570",
+	"name" : "doc",
 	"paths" : 
 	{
-		"build" : "_deps/dpplib-build",
-		"source" : "build-vscode/_deps/dpplib-src"
+		"build" : "doxygen",
+		"source" : "doxygen"
 	},
 	"sourceGroups" : 
 	[
@@ -62,15 +58,15 @@
 	"sources" : 
 	[
 		{
-			"backtrace" : 3,
+			"backtrace" : 2,
 			"isGenerated" : true,
-			"path" : "build-vscode/_deps/dpplib-build/CMakeFiles/debug",
+			"path" : "build-vscode/doxygen/CMakeFiles/doc",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build-vscode/_deps/dpplib-build/CMakeFiles/debug.rule",
+			"path" : "build-vscode/doxygen/CMakeFiles/doc.rule",
 			"sourceGroupIndex" : 1
 		}
 	],

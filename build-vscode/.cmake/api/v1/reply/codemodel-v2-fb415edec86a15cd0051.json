@@ -10,7 +10,8 @@
 					[
 						1,
 						5,
-						9
+						9,
+						13
 					],
 					"hasInstallRule" : true,
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
@@ -22,7 +23,7 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						3
+						4
 					]
 				},
 				{
@@ -92,7 +93,7 @@
 					"source" : "build-vscode/_deps/raylib-src",
 					"targetIndexes" : 
 					[
-						6
+						7
 					]
 				},
 				{
@@ -102,7 +103,7 @@
 						7
 					],
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-_deps.raylib-build.raylib-Debug-483507468e6199c7508e.json",
+					"jsonFile" : "directory-_deps.raylib-build.raylib-Debug-6bb6e4e2e3a09830a77a.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.5"
@@ -112,7 +113,7 @@
 					"source" : "build-vscode/_deps/raylib-src/src",
 					"targetIndexes" : 
 					[
-						4
+						5
 					]
 				},
 				{
@@ -142,8 +143,8 @@
 					"source" : "build-vscode/_deps/raylib-src/src/external/glfw/src",
 					"targetIndexes" : 
 					[
-						2,
-						7
+						3,
+						8
 					]
 				},
 				{
@@ -164,8 +165,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1,
-						5
+						2,
+						6
 					]
 				},
 				{
@@ -204,6 +205,37 @@
 					"parentIndex" : 11,
 					"projectIndex" : 3,
 					"source" : "build-vscode/_deps/dpplib-src/include/libdpp"
+				},
+				{
+					"build" : "doxygen",
+					"childIndexes" : 
+					[
+						14
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-doxygen-Debug-dfac1bb09c1d64ac929c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "doxygen",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "doxygen/themes/custom1",
+					"jsonFile" : "directory-doxygen.themes.custom1-Debug-e60d8b99fc32f7359314.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "doxygen/themes/custom1"
 				}
 			],
 			"name" : "Debug",
@@ -221,12 +253,15 @@
 						1,
 						2,
 						3,
-						4
+						4,
+						13,
+						14
 					],
 					"name" : "raygui-widgets",
 					"targetIndexes" : 
 					[
-						3
+						1,
+						4
 					]
 				},
 				{
@@ -243,8 +278,8 @@
 					"parentIndex" : 0,
 					"targetIndexes" : 
 					[
-						4,
-						6
+						5,
+						7
 					]
 				},
 				{
@@ -257,8 +292,8 @@
 					"parentIndex" : 1,
 					"targetIndexes" : 
 					[
-						2,
-						7
+						3,
+						8
 					]
 				},
 				{
@@ -274,8 +309,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1,
-						5
+						2,
+						6
 					]
 				}
 			],
@@ -284,14 +319,21 @@
 				{
 					"directoryIndex" : 9,
 					"id" : "debug::@f20ea80c57ed53a14c63",
-					"jsonFile" : "target-debug-Debug-80616f9e6323aea8d500.json",
+					"jsonFile" : "target-debug-Debug-54554c5760570580fdc2.json",
 					"name" : "debug",
 					"projectIndex" : 3
 				},
 				{
+					"directoryIndex" : 13,
+					"id" : "doc::@d8045343aaeb59ce4570",
+					"jsonFile" : "target-doc-Debug-114c26f17680989f0f04.json",
+					"name" : "doc",
+					"projectIndex" : 0
+				},
+				{
 					"directoryIndex" : 9,
 					"id" : "dpplib::@f20ea80c57ed53a14c63",
-					"jsonFile" : "target-dpplib-Debug-6d60dfd35cee6e66bcea.json",
+					"jsonFile" : "target-dpplib-Debug-8507a110767e75866632.json",
 					"name" : "dpplib",
 					"projectIndex" : 3
 				},
@@ -319,7 +361,7 @@
 				{
 					"directoryIndex" : 9,
 					"id" : "release::@f20ea80c57ed53a14c63",
-					"jsonFile" : "target-release-Debug-a26ba450c42a1e34e1f3.json",
+					"jsonFile" : "target-release-Debug-311134779592ae550704.json",
 					"name" : "release",
 					"projectIndex" : 3
 				},

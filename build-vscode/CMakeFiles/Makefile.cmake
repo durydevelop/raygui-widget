@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/CMakeLists.txt"
+  "CMakeDoxyfile.in"
+  "CMakeDoxygenDefaults.cmake"
   "CMakeFiles/3.28.1/CMakeCCompiler.cmake"
   "CMakeFiles/3.28.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.28.1/CMakeSystem.cmake"
@@ -44,6 +46,9 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/cmake/FindRaylib.cmake"
   "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/cmake/Finddpplib.cmake"
   "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/cmake/generate_product_version.cmake"
+  "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/doxygen/CMakeLists.txt"
+  "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/doxygen/Doxygen.cmake"
+  "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/doxygen/themes/custom1/CMakeLists.txt"
   "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/CMakeLists.txt"
   "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/CMakeLists.txt"
   "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/raygui/CMakeLists.txt"
@@ -76,6 +81,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/fabio/share/cmake-3.28/Modules/FeatureSummary.cmake"
   "/home/fabio/share/cmake-3.28/Modules/FetchContent.cmake"
   "/home/fabio/share/cmake-3.28/Modules/FetchContent/CMakeLists.cmake.in"
+  "/home/fabio/share/cmake-3.28/Modules/FindDoxygen.cmake"
   "/home/fabio/share/cmake-3.28/Modules/FindGit.cmake"
   "/home/fabio/share/cmake-3.28/Modules/FindOpenGL.cmake"
   "/home/fabio/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake"
@@ -127,6 +133,9 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "_deps/dpplib-build/lib/CMakeFiles/CMakeDirectoryInformation.cmake"
   "_deps/dpplib-build/include/CMakeFiles/CMakeDirectoryInformation.cmake"
   "_deps/dpplib-build/include/libdpp/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "doxygen/Doxyfile.doc"
+  "doxygen/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "doxygen/themes/custom1/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -139,4 +148,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "_deps/dpplib-build/CMakeFiles/dpplib.dir/DependInfo.cmake"
   "_deps/dpplib-build/CMakeFiles/debug.dir/DependInfo.cmake"
   "_deps/dpplib-build/CMakeFiles/release.dir/DependInfo.cmake"
+  "doxygen/CMakeFiles/doc.dir/DependInfo.cmake"
   )

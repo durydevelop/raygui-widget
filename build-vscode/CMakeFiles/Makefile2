@@ -67,12 +67,14 @@ all: CMakeFiles/raygui-widgets.dir/all
 all: src/all
 all: _deps/raylib-build/all
 all: _deps/dpplib-build/all
+all: doxygen/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: src/preinstall
 preinstall: _deps/raylib-build/preinstall
 preinstall: _deps/dpplib-build/preinstall
+preinstall: doxygen/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
@@ -80,6 +82,7 @@ clean: CMakeFiles/raygui-widgets.dir/clean
 clean: src/clean
 clean: _deps/raylib-build/clean
 clean: _deps/dpplib-build/clean
+clean: doxygen/clean
 .PHONY : clean
 
 #=============================================================================
@@ -214,6 +217,38 @@ _deps/raylib-build/raylib/external/glfw/src/clean: _deps/raylib-build/raylib/ext
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/clean
 
 #=============================================================================
+# Directory level rules for directory doxygen
+
+# Recursive "all" directory target.
+doxygen/all: doxygen/themes/custom1/all
+.PHONY : doxygen/all
+
+# Recursive "preinstall" directory target.
+doxygen/preinstall: doxygen/themes/custom1/preinstall
+.PHONY : doxygen/preinstall
+
+# Recursive "clean" directory target.
+doxygen/clean: doxygen/CMakeFiles/doc.dir/clean
+doxygen/clean: doxygen/themes/custom1/clean
+	$(CMAKE_COMMAND) -P doxygen/CMakeFiles/cmake_directory_clean.cmake
+.PHONY : doxygen/clean
+
+#=============================================================================
+# Directory level rules for directory doxygen/themes/custom1
+
+# Recursive "all" directory target.
+doxygen/themes/custom1/all:
+.PHONY : doxygen/themes/custom1/all
+
+# Recursive "preinstall" directory target.
+doxygen/themes/custom1/preinstall:
+.PHONY : doxygen/themes/custom1/preinstall
+
+# Recursive "clean" directory target.
+doxygen/themes/custom1/clean:
+.PHONY : doxygen/themes/custom1/clean
+
+#=============================================================================
 # Directory level rules for directory src
 
 # Recursive "all" directory target.
@@ -287,7 +322,7 @@ CMakeFiles/raygui-widgets.dir/all: _deps/raylib-build/raylib/CMakeFiles/raylib.d
 CMakeFiles/raygui-widgets.dir/all: _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raygui-widgets.dir/build.make CMakeFiles/raygui-widgets.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/raygui-widgets.dir/build.make CMakeFiles/raygui-widgets.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=50,51,52,53,54,55,56,57,58 "Built target raygui-widgets"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=51,52,53,54,55,56,57,58,59 "Built target raygui-widgets"
 .PHONY : CMakeFiles/raygui-widgets.dir/all
 
 # Build rule for subdir invocation for target.
@@ -339,7 +374,7 @@ _deps/raylib-build/CMakeFiles/uninstall.dir/clean:
 _deps/raylib-build/raylib/CMakeFiles/raylib.dir/all: _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/CMakeFiles/raylib.dir/build.make _deps/raylib-build/raylib/CMakeFiles/raylib.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/CMakeFiles/raylib.dir/build.make _deps/raylib-build/raylib/CMakeFiles/raylib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=59,60,61,62,63,64,65,66 "Built target raylib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=60,61,62,63,64,65,66,67 "Built target raylib"
 .PHONY : _deps/raylib-build/raylib/CMakeFiles/raylib.dir/all
 
 # Build rule for subdir invocation for target.
@@ -365,7 +400,7 @@ _deps/raylib-build/raylib/CMakeFiles/raylib.dir/clean:
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/build.make _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/build.make _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49 "Built target glfw"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50 "Built target glfw"
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/all
 
 # Build rule for subdir invocation for target.
@@ -391,7 +426,7 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/clean:
 _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build.make _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build.make _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=68 "Built target update_mappings"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=69 "Built target update_mappings"
 .PHONY : _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/all
 
 # Build rule for subdir invocation for target.
@@ -417,7 +452,7 @@ _deps/raylib-build/raylib/external/glfw/src/CMakeFiles/update_mappings.dir/clean
 _deps/dpplib-build/CMakeFiles/dpplib.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/dpplib-build/CMakeFiles/dpplib.dir/build.make _deps/dpplib-build/CMakeFiles/dpplib.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/dpplib-build/CMakeFiles/dpplib.dir/build.make _deps/dpplib-build/CMakeFiles/dpplib.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26 "Built target dpplib"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27 "Built target dpplib"
 .PHONY : _deps/dpplib-build/CMakeFiles/dpplib.dir/all
 
 # Build rule for subdir invocation for target.
@@ -469,7 +504,7 @@ _deps/dpplib-build/CMakeFiles/debug.dir/clean:
 _deps/dpplib-build/CMakeFiles/release.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/dpplib-build/CMakeFiles/release.dir/build.make _deps/dpplib-build/CMakeFiles/release.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/dpplib-build/CMakeFiles/release.dir/build.make _deps/dpplib-build/CMakeFiles/release.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=67 "Built target release"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=68 "Built target release"
 .PHONY : _deps/dpplib-build/CMakeFiles/release.dir/all
 
 # Build rule for subdir invocation for target.
@@ -487,6 +522,32 @@ release: _deps/dpplib-build/CMakeFiles/release.dir/rule
 _deps/dpplib-build/CMakeFiles/release.dir/clean:
 	$(MAKE) $(MAKESILENT) -f _deps/dpplib-build/CMakeFiles/release.dir/build.make _deps/dpplib-build/CMakeFiles/release.dir/clean
 .PHONY : _deps/dpplib-build/CMakeFiles/release.dir/clean
+
+#=============================================================================
+# Target rules for target doxygen/CMakeFiles/doc.dir
+
+# All Build rule for target.
+doxygen/CMakeFiles/doc.dir/all:
+	$(MAKE) $(MAKESILENT) -f doxygen/CMakeFiles/doc.dir/build.make doxygen/CMakeFiles/doc.dir/depend
+	$(MAKE) $(MAKESILENT) -f doxygen/CMakeFiles/doc.dir/build.make doxygen/CMakeFiles/doc.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles --progress-num=2 "Built target doc"
+.PHONY : doxygen/CMakeFiles/doc.dir/all
+
+# Build rule for subdir invocation for target.
+doxygen/CMakeFiles/doc.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 doxygen/CMakeFiles/doc.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles 0
+.PHONY : doxygen/CMakeFiles/doc.dir/rule
+
+# Convenience name for target.
+doc: doxygen/CMakeFiles/doc.dir/rule
+.PHONY : doc
+
+# clean rule for target.
+doxygen/CMakeFiles/doc.dir/clean:
+	$(MAKE) $(MAKESILENT) -f doxygen/CMakeFiles/doc.dir/build.make doxygen/CMakeFiles/doc.dir/clean
+.PHONY : doxygen/CMakeFiles/doc.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -11,7 +11,6 @@
 		"commands" : 
 		[
 			"add_library",
-			"target_link_libraries",
 			"target_include_directories"
 		],
 		"files" : 
@@ -26,19 +25,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 131,
+				"line" : 108,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 140,
-				"parent" : 0
-			},
-			{
-				"command" : 2,
-				"file" : 0,
-				"line" : 181,
+				"line" : 163,
 				"parent" : 0
 			}
 		]
@@ -67,11 +60,11 @@
 					"path" : "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 2,
 					"path" : "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib"
 				},
 				{
-					"backtrace" : 3,
+					"backtrace" : 2,
 					"path" : "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include"
 				}
 			],
@@ -121,16 +114,6 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "-lstdc++fs",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 2,
-				"fragment" : "-lpthread",
-				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"

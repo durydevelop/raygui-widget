@@ -55,9 +55,7 @@ endif()
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${CMAKE_PROJECT_VERSION})
 
 ## Get Raylib
-print_var(GLFW)
 set(GLFW_BUILD_WAYLAND OFF) # TODO: detect wayland_scanner error
-print_var(GLFW)
 message_c("Get Raylib...")
 find_package(Raylib)
 target_link_libraries(${PROJECT_NAME} PUBLIC raylib)

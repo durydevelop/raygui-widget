@@ -64,7 +64,7 @@
 				"_deps/raylib-build/raylib/libraylib.so.500"
 			],
 			"targetId" : "raylib::@4dc3a4644cf4ded08c01",
-			"targetIndex" : 4,
+			"targetIndex" : 5,
 			"targetInstallNamelink" : "skip",
 			"type" : "target"
 		},
@@ -77,7 +77,7 @@
 				"_deps/raylib-build/raylib/libraylib.so"
 			],
 			"targetId" : "raylib::@4dc3a4644cf4ded08c01",
-			"targetIndex" : 4,
+			"targetIndex" : 5,
 			"targetInstallNamelink" : "only",
 			"type" : "target"
 		},

@@ -20,7 +20,7 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 157,
+				"line" : 139,
 				"parent" : 0
 			},
 			{
@@ -30,13 +30,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 8,
+				"line" : 3,
 				"parent" : 2
 			}
 		]
 	},
-	"id" : "release::@f20ea80c57ed53a14c63",
-	"name" : "release",
+	"id" : "debug::@f20ea80c57ed53a14c63",
+	"name" : "debug",
 	"paths" : 
 	{
 		"build" : "_deps/dpplib-build",
@@ -64,13 +64,13 @@
 		{
 			"backtrace" : 3,
 			"isGenerated" : true,
-			"path" : "build-vscode/_deps/dpplib-build/CMakeFiles/release",
+			"path" : "build-vscode/_deps/dpplib-build/CMakeFiles/debug",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "build-vscode/_deps/dpplib-build/CMakeFiles/release.rule",
+			"path" : "build-vscode/_deps/dpplib-build/CMakeFiles/debug.rule",
 			"sourceGroupIndex" : 1
 		}
 	],
