@@ -642,3 +642,172 @@ events:
         
       exitCode: 0
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "/home/fabio/share/cmake-3.28/Modules/FindX11.cmake:682 (check_library_exists)"
+      - "build-vscode/_deps/raylib-src/src/external/glfw/src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so;/usr/lib/x86_64-linux-gnu/libXext.so"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-n46IJF"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-n46IJF"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake;/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/CMake/modules"
+    buildResult:
+      variable: "X11_LIB_X11_SOLO"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-n46IJF'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_f3c98/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_f3c98.dir/build.make CMakeFiles/cmTC_f3c98.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-n46IJF'
+        Building C object CMakeFiles/cmTC_f3c98.dir/CheckFunctionExists.c.o
+        /usr/bin/gcc   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=XOpenDisplay -std=gnu99 -o CMakeFiles/cmTC_f3c98.dir/CheckFunctionExists.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-n46IJF/CheckFunctionExists.c
+        Linking C executable cmTC_f3c98
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f3c98.dir/link.txt --verbose=1
+        /usr/bin/gcc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=XOpenDisplay CMakeFiles/cmTC_f3c98.dir/CheckFunctionExists.c.o -o cmTC_f3c98  /usr/lib/x86_64-linux-gnu/libX11.so /usr/lib/x86_64-linux-gnu/libXext.so 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-n46IJF'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "/home/fabio/share/cmake-3.28/Modules/FindX11.cmake:697 (check_function_exists)"
+      - "build-vscode/_deps/raylib-src/src/external/glfw/src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for gethostbyname"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-lesbey"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-lesbey"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake;/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_GETHOSTBYNAME"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-lesbey'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_28a4c/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_28a4c.dir/build.make CMakeFiles/cmTC_28a4c.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-lesbey'
+        Building C object CMakeFiles/cmTC_28a4c.dir/CheckFunctionExists.c.o
+        /usr/bin/gcc   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=gethostbyname -std=gnu99 -o CMakeFiles/cmTC_28a4c.dir/CheckFunctionExists.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-lesbey/CheckFunctionExists.c
+        Linking C executable cmTC_28a4c
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_28a4c.dir/link.txt --verbose=1
+        /usr/bin/gcc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=gethostbyname CMakeFiles/cmTC_28a4c.dir/CheckFunctionExists.c.o -o cmTC_28a4c 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-lesbey'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "/home/fabio/share/cmake-3.28/Modules/FindX11.cmake:711 (check_function_exists)"
+      - "build-vscode/_deps/raylib-src/src/external/glfw/src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for connect"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-SgFSnk"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-SgFSnk"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake;/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_CONNECT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-SgFSnk'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_38a34/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_38a34.dir/build.make CMakeFiles/cmTC_38a34.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-SgFSnk'
+        Building C object CMakeFiles/cmTC_38a34.dir/CheckFunctionExists.c.o
+        /usr/bin/gcc   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=connect -std=gnu99 -o CMakeFiles/cmTC_38a34.dir/CheckFunctionExists.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-SgFSnk/CheckFunctionExists.c
+        Linking C executable cmTC_38a34
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_38a34.dir/link.txt --verbose=1
+        /usr/bin/gcc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=connect CMakeFiles/cmTC_38a34.dir/CheckFunctionExists.c.o -o cmTC_38a34 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-SgFSnk'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "/home/fabio/share/cmake-3.28/Modules/FindX11.cmake:720 (check_function_exists)"
+      - "build-vscode/_deps/raylib-src/src/external/glfw/src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for remove"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-qOY8oW"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-qOY8oW"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake;/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_REMOVE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-qOY8oW'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_ab449/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_ab449.dir/build.make CMakeFiles/cmTC_ab449.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-qOY8oW'
+        Building C object CMakeFiles/cmTC_ab449.dir/CheckFunctionExists.c.o
+        /usr/bin/gcc   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=remove -std=gnu99 -o CMakeFiles/cmTC_ab449.dir/CheckFunctionExists.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-qOY8oW/CheckFunctionExists.c
+        Linking C executable cmTC_ab449
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ab449.dir/link.txt --verbose=1
+        /usr/bin/gcc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=remove CMakeFiles/cmTC_ab449.dir/CheckFunctionExists.c.o -o cmTC_ab449 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-qOY8oW'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "/home/fabio/share/cmake-3.28/Modules/FindX11.cmake:729 (check_function_exists)"
+      - "build-vscode/_deps/raylib-src/src/external/glfw/src/CMakeLists.txt:181 (find_package)"
+    checks:
+      - "Looking for shmat"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-MuhWpX"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-MuhWpX"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake;/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_SHMAT"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-MuhWpX'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_b5e3a/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_b5e3a.dir/build.make CMakeFiles/cmTC_b5e3a.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-MuhWpX'
+        Building C object CMakeFiles/cmTC_b5e3a.dir/CheckFunctionExists.c.o
+        /usr/bin/gcc   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=shmat -std=gnu99 -o CMakeFiles/cmTC_b5e3a.dir/CheckFunctionExists.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-MuhWpX/CheckFunctionExists.c
+        Linking C executable cmTC_b5e3a
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b5e3a.dir/link.txt --verbose=1
+        /usr/bin/gcc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=shmat CMakeFiles/cmTC_b5e3a.dir/CheckFunctionExists.c.o -o cmTC_b5e3a 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-MuhWpX'
+        
+      exitCode: 0
+...

@@ -50,11 +50,16 @@ Set current library as interface:
 
 #]=======================================================================]
 
-if (NOT ${PROJECT_NAME}_LIBRARY_TYPE)
-    ## default
+if (NOT ${PROJECT_NAME}_LIBRARY_TYPE AND NOT LIBRARY_TYPE)
+    # Set default
     set(${PROJECT_NAME}_LIBRARY_TYPE SHARED)
+    set(LIBRARY_TYPE SHARED)
+elseif(LIBRARY_TYPE)
+    set(${PROJECT_NAME}_LIBRARY_TYPE ${LIBRARY_TYPE})
+elseif(${PROJECT_NAME}_LIBRARY_TYPE)
+    set(LIBRARY_TYPE ${${PROJECT_NAME}_LIBRARY_TYPE})
 endif()
-
+print_var(LIBRARY_TYPE)
 if (${PROJECT_NAME}_LIBRARY_TYPE MATCHES INTERFACE)
     # INTERFACE has prececence
     # Set INTERFACE ON
