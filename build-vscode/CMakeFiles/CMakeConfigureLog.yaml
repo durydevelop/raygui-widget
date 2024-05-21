@@ -540,3 +540,105 @@ events:
         implicit fwks: []
       
       
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/home/fabio/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "/home/fabio/share/cmake-3.28/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "build-vscode/_deps/raylib-src/cmake/AddIfFlagCompiles.cmake:3 (CHECK_C_COMPILER_FLAG)"
+      - "build-vscode/_deps/raylib-src/cmake/CompilerFlags.cmake:5 (add_if_flag_compiles)"
+      - "build-vscode/_deps/raylib-src/CMakeLists.txt:34 (include)"
+    checks:
+      - "Performing Test COMPILER_HAS_THOSE_TOGGLES"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-YaBaJi"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-YaBaJi"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake"
+    buildResult:
+      variable: "COMPILER_HAS_THOSE_TOGGLES"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-YaBaJi'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_90b2f/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_90b2f.dir/build.make CMakeFiles/cmTC_90b2f.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-YaBaJi'
+        Building C object CMakeFiles/cmTC_90b2f.dir/src.c.o
+        /usr/bin/gcc -DCOMPILER_HAS_THOSE_TOGGLES  -Werror=pointer-arith -o CMakeFiles/cmTC_90b2f.dir/src.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-YaBaJi/src.c
+        Linking C executable cmTC_90b2f
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_90b2f.dir/link.txt --verbose=1
+        /usr/bin/gcc CMakeFiles/cmTC_90b2f.dir/src.c.o -o cmTC_90b2f 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-YaBaJi'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/home/fabio/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/home/fabio/share/cmake-3.28/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/home/fabio/share/cmake-3.28/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "build-vscode/_deps/raylib-src/src/external/glfw/CMakeLists.txt:60 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-s3R6nk"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-s3R6nk"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake;/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/CMake/modules"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-s3R6nk'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_b48ff/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_b48ff.dir/build.make CMakeFiles/cmTC_b48ff.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-s3R6nk'
+        Building C object CMakeFiles/cmTC_b48ff.dir/src.c.o
+        /usr/bin/gcc -DCMAKE_HAVE_LIBC_PTHREAD  -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith   -o CMakeFiles/cmTC_b48ff.dir/src.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-s3R6nk/src.c
+        Linking C executable cmTC_b48ff
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b48ff.dir/link.txt --verbose=1
+        /usr/bin/gcc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith   CMakeFiles/cmTC_b48ff.dir/src.c.o -o cmTC_b48ff 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-s3R6nk'
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/fabio/share/cmake-3.28/Modules/CheckFunctionExists.cmake:86 (try_compile)"
+      - "build-vscode/_deps/raylib-src/src/external/glfw/src/CMakeLists.txt:69 (check_function_exists)"
+    checks:
+      - "Looking for memfd_create"
+    directories:
+      source: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-gbdMQ8"
+      binary: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-gbdMQ8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "-fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith "
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/cmake;/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/CMake/modules"
+    buildResult:
+      variable: "HAVE_MEMFD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-gbdMQ8'
+        
+        Run Build Command(s): /home/fabio/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_02f8d/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_02f8d.dir/build.make CMakeFiles/cmTC_02f8d.dir/build
+        gmake[1]: Entering directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-gbdMQ8'
+        Building C object CMakeFiles/cmTC_02f8d.dir/CheckFunctionExists.c.o
+        /usr/bin/gcc   -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=memfd_create -std=gnu99 -o CMakeFiles/cmTC_02f8d.dir/CheckFunctionExists.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-gbdMQ8/CheckFunctionExists.c
+        Linking C executable cmTC_02f8d
+        /home/fabio/bin/cmake -E cmake_link_script CMakeFiles/cmTC_02f8d.dir/link.txt --verbose=1
+        /usr/bin/gcc -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -DCHECK_FUNCTION_EXISTS=memfd_create CMakeFiles/cmTC_02f8d.dir/CheckFunctionExists.c.o -o cmTC_02f8d 
+        gmake[1]: Leaving directory '/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/CMakeFiles/CMakeScratch/TryCompile-gbdMQ8'
+        
+      exitCode: 0
+...
