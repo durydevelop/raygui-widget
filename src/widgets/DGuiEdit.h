@@ -29,15 +29,14 @@ class DGuiEdit : public DGuiWidget
 
     private:
         void Init(void);
-        int DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode);
+        //int DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode);
 
-//        std::string Text; // overrided
         size_t MaxTextLenght;   /// Max lenght of edit text
         bool ReadOnly;          /// Read-only mode
         bool PasswordMode;      /// When true viewBuff is masked with '*'.
         char *viewBuff;         /// Buffer used for ui, if PasswordMode is false it is used also for realtext.
         char *hideBuff;         /// In password mode used to store text.
-        int textBoxShadowCursorIndex;  /// In password mode used to keep trace of current cursor position.
+//        int textBoxShadowCursorIndex;  /// In password mode used to keep trace of current cursor position.
         bool EditMode;
 
         //int DrawTextBox(Rectangle bounds, int bufferSize, bool editMode);

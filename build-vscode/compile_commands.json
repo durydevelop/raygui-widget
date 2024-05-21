@@ -1,0 +1,374 @@
+[
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/core/DGuiApp.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiApp.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiApp.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/core/DGuiApp.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/core/DGuiWidget.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiWidget.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiWidget.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/core/DGuiWidget.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/core/Log.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/Log.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/Log.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/core/Log.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/widgets/DGuiButton.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiButton.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiButton.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/widgets/DGuiButton.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/widgets/DGuiContainer.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiContainer.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiContainer.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/widgets/DGuiContainer.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/widgets/DGuiEdit.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiEdit.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiEdit.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/widgets/DGuiEdit.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/widgets/DGuiLabel.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiLabel.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiLabel.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/widgets/DGuiLabel.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode",
+  "command": "/usr/bin/g++ -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draygui_widgets_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget -I/include -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -g -std=gnu++20 -fPIC -o CMakeFiles/raygui-widgets.dir/src/widgets/DGuiStatusBar.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiStatusBar.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiStatusBar.cpp",
+  "output": "CMakeFiles/raygui-widgets.dir/src/widgets/DGuiStatusBar.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib",
+  "command": "/usr/bin/gcc -DBUILD_LIBTYPE_SHARED -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draylib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -isystem /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -fPIC -fvisibility=hidden -o CMakeFiles/raylib.dir/rcore.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rcore.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rcore.c",
+  "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rcore.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib",
+  "command": "/usr/bin/gcc -DBUILD_LIBTYPE_SHARED -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draylib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -isystem /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -fPIC -fvisibility=hidden -o CMakeFiles/raylib.dir/rmodels.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rmodels.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rmodels.c",
+  "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rmodels.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib",
+  "command": "/usr/bin/gcc -DBUILD_LIBTYPE_SHARED -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draylib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -isystem /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -fPIC -fvisibility=hidden -o CMakeFiles/raylib.dir/rshapes.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rshapes.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rshapes.c",
+  "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rshapes.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib",
+  "command": "/usr/bin/gcc -DBUILD_LIBTYPE_SHARED -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draylib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -isystem /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -fPIC -fvisibility=hidden -o CMakeFiles/raylib.dir/rtext.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rtext.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rtext.c",
+  "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtext.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib",
+  "command": "/usr/bin/gcc -DBUILD_LIBTYPE_SHARED -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draylib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -isystem /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -fPIC -fvisibility=hidden -o CMakeFiles/raylib.dir/rtextures.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rtextures.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/rtextures.c",
+  "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/rtextures.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib",
+  "command": "/usr/bin/gcc -DBUILD_LIBTYPE_SHARED -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draylib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -isystem /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -fPIC -fvisibility=hidden -o CMakeFiles/raylib.dir/utils.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/utils.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/utils.c",
+  "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/utils.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib",
+  "command": "/usr/bin/gcc -DBUILD_LIBTYPE_SHARED -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP -Draylib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src -isystem /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=gnu99 -fPIC -fvisibility=hidden -o CMakeFiles/raylib.dir/raudio.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/raudio.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/raudio.c",
+  "output": "_deps/raylib-build/raylib/CMakeFiles/raylib.dir/raudio.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/context.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/context.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/context.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/context.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/init.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/init.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/init.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/init.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/input.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/input.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/input.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/input.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/monitor.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/monitor.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/monitor.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/monitor.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/platform.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/platform.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/platform.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/platform.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/vulkan.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/vulkan.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/vulkan.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/vulkan.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/window.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/window.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/window.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/window.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/egl_context.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/egl_context.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/egl_context.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/egl_context.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/osmesa_context.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/osmesa_context.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/osmesa_context.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/null_init.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_init.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_init.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_init.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/null_monitor.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_monitor.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_monitor.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/null_window.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_window.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_window.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_window.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/null_joystick.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_joystick.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/null_joystick.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/posix_module.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_module.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_module.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_module.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/posix_time.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_time.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_time.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_time.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/posix_thread.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_thread.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_thread.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_thread.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/x11_init.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/x11_init.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/x11_init.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_init.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/x11_monitor.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/x11_monitor.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/x11_monitor.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_monitor.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/x11_window.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/x11_window.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/x11_window.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/x11_window.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/xkb_unicode.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/xkb_unicode.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/xkb_unicode.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/xkb_unicode.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/glx_context.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/glx_context.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/glx_context.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/glx_context.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/linux_joystick.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/linux_joystick.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/linux_joystick.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/linux_joystick.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src",
+  "command": "/usr/bin/gcc -D_DEFAULT_SOURCE -D_GLFW_X11 -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build/raylib/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/include -fno-strict-aliasing -Werror=implicit-function-declaration -Werror=pointer-arith  -g -std=c99 -fPIC -fvisibility=hidden -Wall -o CMakeFiles/glfw.dir/posix_poll.c.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_poll.c",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src/src/external/glfw/src/posix_poll.c",
+  "output": "_deps/raylib-build/raylib/external/glfw/src/CMakeFiles/glfw.dir/posix_poll.c.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/core/DGuiApp.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiApp.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiApp.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/core/DGuiApp.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/core/DGuiWidget.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiWidget.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/DGuiWidget.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/core/DGuiWidget.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/core/Log.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/Log.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/core/Log.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/core/Log.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiButton.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiButton.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiButton.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiButton.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiContainer.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiContainer.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiContainer.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiContainer.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiEdit.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiEdit.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiEdit.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiEdit.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiLabel.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiLabel.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiLabel.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiLabel.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiStatusBar.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiStatusBar.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/src/widgets/DGuiStatusBar.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/__/__/__/src/widgets/DGuiStatusBar.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DChrono.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DChrono.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DChrono.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DChrono.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DCsv.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DCsv.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DCsv.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DCsv.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DPath.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DPath.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DPath.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DPath.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DPathWatcher.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DPathWatcher.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DPathWatcher.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DPathWatcher.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DPreferences.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DPreferences.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DPreferences.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DPreferences.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DSettings.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DSettings.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DSettings.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DSettings.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DShell.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DShell.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DShell.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DShell.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DString.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DString.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DString.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DString.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DStringGrid.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DStringGrid.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DStringGrid.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DStringGrid.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DSyncFile.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DSyncFile.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DSyncFile.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DSyncFile.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DSyncWatcher.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DSyncWatcher.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DSyncWatcher.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DSyncWatcher.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DTree.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DTree.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DTree.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DTree.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DUpdate.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DUpdate.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DUpdate.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DUpdate.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DValue.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DValue.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DValue.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DValue.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DVector.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DVector.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DVector.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DVector.cpp.o"
+},
+{
+  "directory": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build",
+  "command": "/usr/bin/g++ -Ddpplib_EXPORTS -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-build -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib -I/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/include -g -std=gnu++17 -fPIC -o CMakeFiles/dpplib.dir/lib/DWindow.cpp.o -c /home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DWindow.cpp",
+  "file": "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/dpplib-src/lib/DWindow.cpp",
+  "output": "_deps/dpplib-build/CMakeFiles/dpplib.dir/lib/DWindow.cpp.o"
+}
+]

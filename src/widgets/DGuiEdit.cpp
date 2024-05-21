@@ -238,7 +238,7 @@ void DGuiEdit::Draw()
 
     GuiSetStyle(Type,TEXT_READONLY,CurrReadOnly);
 }
-
+/*
 // Text Box control
 // NOTE: Returns true on ENTER pressed (useful for data validation)
 int DGuiEdit::DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode)
@@ -649,3 +649,4 @@ int DGuiEdit::DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, in
 
     return result;      // Mouse button pressed: result = 1
 }
+*/
