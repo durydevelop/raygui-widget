@@ -111,7 +111,7 @@ include(DPrintHelpers)
 
 ## Setup Target
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
-add_library(${PROJECT_NAME} INTERFACE ${SRC_FILES})
+add_library(${PROJECT_NAME} INTERFACE) # TODO ${SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} INTERFACE ${SRC_DIRS})
 

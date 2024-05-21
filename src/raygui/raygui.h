@@ -2443,6 +2443,8 @@ int GuiDropdownBox(Rectangle bounds, const char *text, int *active, bool editMod
 // Text Box control
 // NOTE: Returns true on ENTER pressed (useful for data validation)
 int GuiTextBox(Rectangle bounds, char *text, int textSize, bool editMode)
+<<<<<<< HEAD
+=======
 {
     return GuiTextBoxMasked(bounds, text, NULL, textSize, editMode);
 }
@@ -2450,6 +2452,7 @@ int GuiTextBox(Rectangle bounds, char *text, int textSize, bool editMode)
 // Text Box control
 // NOTE: Returns true on ENTER pressed (useful for data validation)
 int GuiTextBoxMasked(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode)
+>>>>>>> refs/remotes/origin/master
 {
     #if !defined(RAYGUI_TEXTBOX_AUTO_CURSOR_COOLDOWN)
         #define RAYGUI_TEXTBOX_AUTO_CURSOR_COOLDOWN  40        // Frames to wait for autocursor movement
