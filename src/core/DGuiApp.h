@@ -1,7 +1,7 @@
 #ifndef DGuiApp_H
 #define DGuiApp_H
 
-#include <DGuiCommon.h>
+#include "DGuiCommon.h"
 #include <DGuiWidget.h>
 #include <functional>
 #include <string>

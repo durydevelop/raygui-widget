@@ -2,6 +2,7 @@
 #define DGuiEdit_H
 
 #include <DGuiWidget.h>
+#include <raygui.h>
 
 class DGuiEdit : public DGuiWidget
 {
@@ -29,9 +30,8 @@ class DGuiEdit : public DGuiWidget
 
     private:
         void Init(void);
-        int DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode);
+        //int DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode);
 
-//        std::string Text; // overrided
         size_t MaxTextLenght;   /// Max lenght of edit text
         bool ReadOnly;          /// Read-only mode
         bool PasswordMode;      /// When true viewBuff is masked with '*'.

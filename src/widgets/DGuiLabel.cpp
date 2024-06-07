@@ -1,7 +1,7 @@
 #include "DGuiLabel.h"
-//#define RAYGUI_IMPLEMENTATION
-//#include <raygui.h>
-#include "Log.h"
+//#include "raywui_log.h"
+
+//const char TAG[10]="DGuiLabel";
 
 DGuiLabel::DGuiLabel(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget) : DGuiWidget(DLABEL,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget) {
     DEFAULT_SIDE_SIZE=50;

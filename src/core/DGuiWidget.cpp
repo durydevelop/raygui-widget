@@ -7,10 +7,10 @@
 #include <raygui.h>
 #include <sstream>
 #include <fstream>
-#include "Log.h"
-#include <libdpp/DString.h>
-#include <libdpp/DPath.h>
-#include <libdpp/DCsv.h>
+#include "raywui_log.h"
+#include <dpplib/DString.h>
+#include <dpplib/DPath.h>
+#include <dpplib/DCsv.h>
 
 using namespace DTools;
 
@@ -59,6 +59,8 @@ struct DRgl {
 
 #define DOT DPreferences::DEFAULT_TRANSLATOR
 
+const char TAG[11]="DGuiWidget";
+
 /**
  * @brief Coordinate constructor.
  * 
@@ -81,12 +83,12 @@ DGuiWidget::DGuiWidget(DWidgetType WidgetType, int LeftPos, int TopPos, int Widg
     if (TopPos < 0) {
         TopPos=0;
     }
-    //Log(DLOG_DEBUG,"ParentWidget=%d",ParentWidget);
-    //Log(DLOG_DEBUG,"SetParent");
+    //Log::debug(TAG,"ParentWidget=%d",ParentWidget);
+    //Log::debug(TAG,"SetParent");
     SetParent(ParentWidget);
-    //Log(DLOG_DEBUG,"SetBounds");
+    //Log::debug(TAG,"SetBounds");
     SetBounds(LeftPos,TopPos,WidgetWidth,WidgetHeight);
-    //Log(DLOG_DEBUG,"SetWidgetType");
+    //Log::debug(TAG,"SetWidgetType");
     SetWidgetType(WidgetType);
     OnWidgetEvent=EventCallback;
 };
@@ -200,11 +202,11 @@ void DGuiWidget::SetWidth(int Width)
     if (Width < 0) {
         // Parent width
         if (Parent) {
-            //Log(DLOG_DEBUG,"Parent->GetWidth()");
+            //Log::debug(TAG,"Parent->GetWidth()");
             Bounds.width=Parent->GetWidth();
         }
         else {
-            //Log(DLOG_DEBUG,"GetScreenWidth()");
+            //Log::debug(TAG,"GetScreenWidth()");
             Bounds.width=GetScreenWidth();
         }
     }
@@ -293,7 +295,7 @@ void DGuiWidget::SetDocking(std::string DockingSideName, int OtherSize) {
         SetDocking(DGuiWidget::DOCK_CENTER,OtherSize);
     }
     else {
-        Log(DLOG_WARNING,"Docking side unkown: %s",DockingSideName.c_str());
+        Log::warning(TAG,"Docking side unkown: %s",DockingSideName.c_str());
     }
 }
 
@@ -569,20 +571,20 @@ void DGuiWidget::Draws(void) {
  * 
  */
 DGuiWidget* DGuiWidget::New(const std::string& Filename, DGuiWidget *Parent) {
-    Log(DLOG_DEBUG,"Loading %s",Filename.c_str());
+    Log::debug(TAG,"Loading %s",Filename.c_str());
     std::string JsonFilename;
     if (DString::CmpNoCase(DPath::GetExt(Filename),"rgl")) {
         // Raygui rgl format, convert to json
         JsonFilename=DPath::ChangeExt(Filename,"json",false);
         if (DPath::Exists_StdFs(JsonFilename.c_str())) {
-            Log(DLOG_WARNING,"found a Json version of same layout, assume to use it");
+            Log::warning(TAG,"found a Json version of same layout, assume to use it");
         }
         else {
             if (!DPath::Exists(Filename)) {
-                Log(DLOG_ERROR,"Layout file does not exist: %s",Filename.c_str());
+                Log::error(TAG,"Layout file does not exist: %s",Filename.c_str());
                 return nullptr;
             }
-            Log(DLOG_DEBUG,"rgl file need to be converted to json");
+            Log::debug(TAG,"rgl file need to be converted to json");
             JsonFilename=RglToJson(Filename);
         }
     }
@@ -591,13 +593,13 @@ DGuiWidget* DGuiWidget::New(const std::string& Filename, DGuiWidget *Parent) {
     }
 
     if (JsonFilename.empty()) {
-        Log(DLOG_ERROR,"Not valid layout file...");
+        Log::error(TAG,"Not valid layout file...");
         return nullptr;
     }
 
     DPreferences Json(JsonFilename,false);
     if (!Json.IsReady()) {
-        Log(DLOG_ERROR,"Error parsing %s: %s",JsonFilename.c_str(), Json.GetLastStatus().c_str());
+        Log::error(TAG,"Error parsing %s: %s",JsonFilename.c_str(), Json.GetLastStatus().c_str());
         return nullptr;
     }
 
@@ -628,7 +630,7 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
     // Create widget
     auto Widget=DGuiWidget::New(WidgetType,Bounds,Text, Parent);
     if (!Widget) {
-        Log(DLOG_ERROR,"Cannot create widget from tree");
+        Log::error(TAG,"Cannot create widget from tree");
         return nullptr;
     }
 
@@ -666,7 +668,7 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
     // Name
     Widget->Name=WidgetTree.ReadString(DJsonTree::ITEM_NAME,"");
     if (Widget->Name.empty()) {
-        Log(DLOG_WARNING,"Container %s has no name",Widget->Id.c_str());
+        Log::warning(TAG,"Container %s has no name",Widget->Id.c_str());
     }
 
     // Enabled
@@ -687,7 +689,7 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
         DGuiContainer* Container=(DGuiContainer *) Widget;
         // Widgets
         std::vector<DTree> Children=WidgetTree.ReadArrayTrees(DJsonTree::SEC_CHILDREN);
-        Log(DLOG_DEBUG,"Container %s have %d widgets",Container->Name.c_str(),Children.size());
+        Log::debug(TAG,"Container %s have %d widgets",Container->Name.c_str(),Children.size());
         for (auto Child : Children) {
             DGuiWidget *SubWidget=DGuiWidget::New(Child,Widget);
             if (SubWidget) {
@@ -701,31 +703,31 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
         DTree SubItems=WidgetTree.GetTree(DJsonTree::SEC_STATUSBAR_ITEMS);
         std::vector<std::string> Items;
         SubItems.ReadNames(Items);
-        Log(DLOG_DEBUG,"StatusBar have %d items",Items.size());
+        Log::debug(TAG,"StatusBar have %d items",Items.size());
         // Add Items
         for (std::string& ItemName : Items) {
             int Left=0;
             int Width=-1; // auto
             std::string DockingSide=SubItems.ReadString(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIDE,"");
             if (DockingSide == DJsonTree::VALUE_LEFT) {
-                //Log(DLOG_DEBUG,"Statusbar item docked to the left");
+                //Log::debug(TAG,"Statusbar item docked to the left");
                 Left=DGuiWidget::DOCK_LEFT;
                 Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
             }
             else if (DockingSide == DJsonTree::VALUE_RIGHT) {
-                //Log(DLOG_DEBUG,"Statusbar item docked to the right");
+                //Log::debug(TAG,"Statusbar item docked to the right");
                 Left=DGuiWidget::DOCK_RIGHT;
                 Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
             }
             else if (DockingSide == DJsonTree::VALUE_CENTER) {
-                //Log(DLOG_DEBUG,"Statusbar item docked to center");
+                //Log::debug(TAG,"Statusbar item docked to center");
                 Left=DGuiWidget::DOCK_CENTER;
                 Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
             }
             else {
                 Left=SubItems.ReadInteger(ItemName,DJsonTree::ITEM_LEFT,DGuiWidget::DOCK_LEFT);
                 if (Left < DGuiWidget::DOCK_CENTER) {
-                    //Log(DLOG_WARNING,"Left value of %d is not supported, set to 0");
+                    //Log::warning(TAG,"Left value of %d is not supported, set to 0");
                     Left=0;
                 }
                 Width=SubItems.ReadInteger(ItemName,DJsonTree::ITEM_WIDTH,DGuiWidget::WIDTH_AUTO);
@@ -738,7 +740,7 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
             
 
             // Add Item
-            //Log(DLOG_DEBUG,"%s: Left=%d, Width=%d, Text=<%s>",ItemName.c_str(),Left,Width,Text.c_str());
+            //Log::debug(TAG,"%s: Left=%d, Width=%d, Text=<%s>",ItemName.c_str(),Left,Width,Text.c_str());
             StatusBar->AddItem(ItemName,Left,Width,Text);
             // Set align
             DGuiStatusBar::DStatusBarItem *Item=StatusBar->GetItem(ItemName);
@@ -765,41 +767,41 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
 DGuiWidget* DGuiWidget::New(DWidgetType WidgetType, int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, std::string Text, DGuiWidget *Parent)
 {
     if (WidgetType == DCONTAINER) {
-        //Log(DLOG_DEBUG,"New Container");
+        //Log::debug(TAG,"New Container");
         DGuiContainer *Container=new DGuiContainer(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
         Container->SetText(Text);
         return Container;
     }
     if (WidgetType == DLABEL) {
-        //Log(DLOG_DEBUG,"New label");
+        //Log::debug(TAG,"New label");
         DGuiLabel *Label=new DGuiLabel(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
         Label->SetText(Text);
         return Label;
     }
     else if (WidgetType == DBUTTON) {
-        //Log(DLOG_DEBUG,"New button");
+        //Log::debug(TAG,"New button");
         DGuiButton *Button=new DGuiButton(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
         Button->SetText(Text);
         return Button;
     }
     else if (WidgetType == DEDIT) {
-        //Log(DLOG_DEBUG,"New edit");
+        //Log::debug(TAG,"New edit");
         DGuiEdit *Edit=new DGuiEdit(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
         Edit->SetText(Text);
         return Edit;
     }
     if (WidgetType == DSTATUSBAR) {
-        //Log(DLOG_DEBUG,"New StatusBar");
+        //Log::debug(TAG,"New StatusBar");
         DGuiStatusBar *StatusBar=new DGuiStatusBar(LeftPos,TopPos,WidgetWidth,WidgetHeight,Parent);
         StatusBar->SetText(Text);
         return StatusBar;
     }
 
     if (WidgetTypeToName.contains(WidgetType)) {
-        Log(DLOG_ERROR,"Widget type %s not implemented",WidgetTypeToName.at(WidgetType).c_str());
+        Log::error(TAG,"Widget type %s not implemented",WidgetTypeToName.at(WidgetType).c_str());
     }
     else {
-        Log(DLOG_ERROR,"Unknown Widget Type");
+        Log::error(TAG,"Unknown Widget Type");
     }
     return nullptr;
 }
@@ -817,19 +819,19 @@ DGuiWidget* DGuiWidget::New(DWidgetType WidgetType, Rectangle WidgetBounds, std:
  * @return new filename on succesfully conversion otherwise an empty string.
  */
 std::string DGuiWidget::RglToJson(std::string Filename) {
-    Log(DLOG_DEBUG,"Converting %s",Filename.c_str());
+    Log::debug(TAG,"Converting %s",Filename.c_str());
 
     // Load rgl file
     auto FileStream=std::ifstream(Filename,std::ios::in);
     if (!FileStream.is_open()) {
-        Log(DLOG_ERROR,"%s cannot be opened.",Filename.c_str());
+        Log::error(TAG,"%s cannot be opened.",Filename.c_str());
         return std::string();
     }
 
     // Create a new empty json
     DPreferences JsonFile(DPath::ChangeExt(Filename,"json",false));
     if (!JsonFile.IsReady()) {
-        Log(DLOG_ERROR,"%s cannot be created.",Filename.c_str());
+        Log::error(TAG,"%s cannot be created.",Filename.c_str());
         return std::string();
     }
 
@@ -875,7 +877,7 @@ std::string DGuiWidget::RglToJson(std::string Filename) {
         JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_HEIGHT,Widget->Bounds.height);
     }
     if (!JsonFile.Save()) {
-        Log(DLOG_ERROR,"Error saving %s file: %s",JsonFile.GetFilename().c_str(),JsonFile.GetLastStatus().c_str());
+        Log::error(TAG,"Error saving %s file: %s",JsonFile.GetFilename().c_str(),JsonFile.GetLastStatus().c_str());
         return std::string();
     }
 
@@ -894,7 +896,7 @@ DGuiWidget* DGuiWidget::RglLineToWidget(std::string Line) {
     std::vector<std::string> LineItems;
     DCsv::ReadCSVRow(LineItems,Line,' ');
     if (LineItems.size() < DRgl::ControlLineItemsCount-1) {
-        Log(DLOG_ERROR,"Line fields nr %d wrong",LineItems.size());
+        Log::error(TAG,"Line fields nr %d wrong",LineItems.size());
         return nullptr;
     }
 
@@ -907,7 +909,7 @@ DGuiWidget* DGuiWidget::RglLineToWidget(std::string Line) {
     int WidgetType=DString::ToInt(LineItems[DRgl::CTRL_IX_TYPE]);
     WidgetType-=3; // TODO: For now it is a trick to match with RayGui type
     if (!WidgetTypeToName.contains((DWidgetType) WidgetType)) {
-        Log(DLOG_ERROR,"Control type unkown: %d",WidgetType);
+        Log::error(TAG,"Control type unkown: %d",WidgetType);
         return nullptr;
     }
 
@@ -930,7 +932,7 @@ DGuiWidget* DGuiWidget::RglLineToWidget(std::string Line) {
     // Create widget
     auto Widget=DGuiWidget::New((DWidgetType) WidgetType,Bounds,Text,nullptr);
     if (!Widget) {
-        Log(DLOG_ERROR,"Cannot create widget from rgl line");
+        Log::error(TAG,"Cannot create widget from rgl line");
         return nullptr;
     }
 

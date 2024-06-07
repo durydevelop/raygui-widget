@@ -3,7 +3,9 @@
 //#define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 #include <DGuiContainer.h>
-#include "Log.h"
+#include "raywui_log.h"
+
+const char TAG[8]="DGuiApp";
 
 DGuiApp::DGuiApp(size_t ScreenWidth, size_t ScreenHeight, std::string AppTitle)
 {
@@ -26,7 +28,7 @@ DGuiApp::DGuiApp(size_t ScreenWidth, size_t ScreenHeight, std::string AppTitle)
 
 DGuiApp::~DGuiApp()
 {
-    Log(DLOG_DEBUG,"~DGuiApp()");
+    Log::debug(TAG,"~DGuiApp()");
     // Close window and OpenGL context
     CloseWindow();
     for (auto [id,widget] : StaticWidgets) {
@@ -50,7 +52,7 @@ DGuiContainer* DGuiApp::SetActiveContainer(std::string ContainerName)
 {
     auto Container=GetContainerFromName(ContainerName);
     if (!Container) {
-        Log(DLOG_ERROR,"Container %s not found",ContainerName.c_str());
+        Log::error(TAG,"Container %s not found",ContainerName.c_str());
         return nullptr;
     }
     ActiveContainer=Container;
@@ -113,7 +115,7 @@ DGuiContainer* DGuiApp::AddContainerFromFile(std::string JsonFilename) {
     DGuiContainer *NewContainer=(DGuiContainer *) DGuiWidget::New(JsonFilename,nullptr);
 
     if (!NewContainer) {
-        Log(DLOG_ERROR,"%s layout possibile incorrect",JsonFilename.c_str());
+        Log::error(TAG,"%s layout possibile incorrect",JsonFilename.c_str());
         return nullptr;
     }
 
@@ -124,7 +126,7 @@ DGuiContainer* DGuiApp::AddContainerFromFile(std::string JsonFilename) {
 DGuiWidget* DGuiApp::AddStaticWidgetFromFile(std::string JsonFilename) {
     DGuiWidget* Widget=DGuiWidget::New(JsonFilename,nullptr);
     if (!Widget) {
-        Log(DLOG_ERROR,"%s layout possibile incorrect",JsonFilename.c_str());
+        Log::error(TAG,"%s layout possibile incorrect",JsonFilename.c_str());
         return nullptr;
     }
     Widget->SetOnGuiEvent(GuiEventCallback);
@@ -166,7 +168,7 @@ DResult DGuiApp::Run(void)
     // Main loop (detect window close button or ESC key)
     while (!WindowShouldClose()) {
         if (ActiveContainer) {
-            //Log(DLOG_DEBUG,"ActiveContainer=%s",ActiveContainer->Name.c_str());
+            //DLog::debug("ActiveContainer=%s",ActiveContainer->Name.c_str());
             ClearBackground(GetColor(ActiveContainer->Properties.BackGroundColor));
             // Draw container
             ActiveContainer->Draw();

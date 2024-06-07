@@ -2,7 +2,7 @@
 #define DGuiContainer_H
 
 #include <DGuiWidget.h>
-#include <libdpp/DPreferences.h>
+#include <dpplib/DPreferences.h>
 /*
 class DGuiApp;
 
