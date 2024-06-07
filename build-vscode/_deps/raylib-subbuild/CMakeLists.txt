@@ -16,20 +16,12 @@ unset(ENV{CMAKE_TOOLCHAIN_FILE})
 project(raylib-populate NONE)
 
 
-# Pass through things we've already detected in the main project to avoid
-# paying the cost of redetecting them again in ExternalProject_Add()
-set(GIT_EXECUTABLE [==[/usr/bin/git]==])
-set(GIT_VERSION_STRING [==[2.34.1]==])
-set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
-  [==[/usr/bin/git;2.34.1]==]
-)
-
 
 include(ExternalProject)
 ExternalProject_Add(raylib-populate
-                     "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/raysan5/raylib.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR"
-                    SOURCE_DIR          "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-src"
-                    BINARY_DIR          "/home/fabio/Dev/cpp/lib-mcu/raygui-widget/build-vscode/_deps/raylib-build"
+                     "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "OFF" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "URL" "https://github.com/raysan5/raylib/archive/refs/tags/5.0.tar.gz"
+                    SOURCE_DIR          "/home/fabio/Dev/cpp/lib-mcu/raywui/build-vscode/_deps/raylib-src"
+                    BINARY_DIR          "/home/fabio/Dev/cpp/lib-mcu/raywui/build-vscode/_deps/raylib-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

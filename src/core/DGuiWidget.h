@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 #include <DGuiCommon.h>
-#include <libdpp/DPreferences.h>
+#include <dpplib/DPreferences.h>
 
 /**
  * @brief DGuiWidget base class.

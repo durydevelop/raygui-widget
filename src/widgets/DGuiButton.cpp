@@ -1,5 +1,5 @@
 #include "DGuiButton.h"
-#include "Log.h"
+//#include "raywui_log.h"
 
 DGuiButton::DGuiButton(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget, OnWidgetEventCallback EventCallback) : DGuiWidget(DBUTTON,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget,EventCallback)
 {

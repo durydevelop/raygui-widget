@@ -1,23 +1,65 @@
-#find_package(raylib 4.5.0 QUIET CONFIG)
-set(GLFW_BUILD_WAYLAND OFF) # TODO: detect wayland_scanner error
-set(FETCHCONTENT_UPDATES_DISCONNECTED OFF)
-if (NOT raylib_FOUND)
-    include(FetchContent)
-    FetchContent_Declare(
-        raylib
-        GIT_REPOSITORY https://github.com/raysan5/raylib.git
-#        GIT_TAG 4.5.0
-    )
-    FetchContent_GetProperties(raylib)
-    if (NOT raylib_POPULATED) # Have we downloaded raylib yet?
-        set(FETCHCONTENT_QUIET NO)
-        FetchContent_Populate(raylib)
-        set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # don't build the supplied examples
-        set(BUILD_GAMES    OFF CACHE BOOL "" FORCE) # or games
-    endif()
-    FetchContent_MakeAvailable(raylib)
+#### Find Raylib lib
 
-    add_subdirectory(${raylib_SOURCE_DIR} ${raylib_BINARY_DIR})
-    include_directories(${raylib_SOURCE_DIR}/src)
+function(get_package_from_git)
+    include(FetchContent)
+    set(FETCHCONTENT_QUIET OFF)
+    set(FETCHCONTENT_UPDATES_DISCONNECTED OFF)
+    set(FETCHCONTENT_BASE_DIR _deps)
+    FetchContent_Declare(
+        ${ARGV0}
+        GIT_REPOSITORY ${ARGV1}
+        #GIT_TAG main
+        #GIT_PROGRESS TRUE
+    )
+    # Check if population has already been performed
+    FetchContent_GetProperties(${ARGV0})
+    if(NOT ${ARGV0}_POPULATED)
+        FetchContent_Populate(${ARGV0})
+        add_subdirectory(${${ARGV0}_SOURCE_DIR} ${${ARGV0}_BINARY_DIR})
+    endif()
+    FetchContent_MakeAvailable(${ARGV0})
+endfunction()
+
+unset(BUILD_EXAMPLES CACHE)
+if (USE_EXTERNAL_RAYLIB)
+    # Do not use internal Raylib
+    message_c(${BOLD_MAGENTA} "${BOLD_WHITE}${PROJECT_NAME}${BOLD_MAGENTA} is finding <${BOLD_CYAN}raylib${BOLD_MAGENTA}>")
+    if (raylib_GIT_REPOSITORY)
+        # GIT forced
+        get_package_from_git(raylib ${raylib_GIT_REPOSITORY})
+        if (raylib_FOUND)
+            message_c(${BOLD_MAGENTA} "${BOLD_WHITE}${PROJECT_NAME}${BOLD_MAGENTA} <${BOLD_CYAN}raylib${BOLD_MAGENTA}> loaded custom repo")
+        endif()
+    elseif(raylib_ROOT)
+        # Local FORCED
+        add_subdirectory(${raylib_ROOT} _deps/raylib)
+    else()
+        # Try to find in system
+        find_package(raylib QUIET CONFIG)
+        if (raylib_FOUND)
+            if (ZLIB_FOUND)
+                link_libraries(ZLIB::ZLIB)
+            endif()
+            get_target_property(raylib_INCLUDE_DIRECTORIES raylib::raylib INTERFACE_INCLUDE_DIRECTORIES)
+            message_c(${BOLD_MAGENTA} "${BOLD_WHITE}${PROJECT_NAME}${BOLD_MAGENTA} <${BOLD_CYAN}raylib${BOLD_MAGENTA}> found in system")
+        else()
+            # Load from official repo
+            get_package_from_git(raylib https://github.com/raysan5/raylib.git)
+            set(raylib_FOUND TRUE)
+            message_c(${BOLD_MAGENTA} "${BOLD_WHITE}${PROJECT_NAME}${BOLD_MAGENTA} <${BOLD_CYAN}raylib${BOLD_MAGENTA}> loaded from official repo")
+        endif()
+    endif()
+else()
+    # Use embedded one
+    message_c(${BOLD_MAGENTA} "${BOLD_WHITE}${PROJECT_NAME}${BOLD_MAGENTA} use <${BOLD_CYAN}raylib${BOLD_MAGENTA}> embedded")
+    add_subdirectory(external/raylib)
+    install(
+        DIRECTORY ${raylib_SOURCE_DIR}/raylib
+        DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_TARGET_NAME}"
+        FILES_MATCHING PATTERN "*.h"
+    )
 endif()
-set(GLFW_BUILD_WAYLAND OFF) # TODO: detect wayland_scanner error
+
+#print_var(raylib)
+#print_target_prop(raylib)
+#include_directories(${raylib_SOURCE_DIR})

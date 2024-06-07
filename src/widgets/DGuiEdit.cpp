@@ -1,11 +1,13 @@
 #include "DGuiEdit.h"
-#include "Log.h"
+#include "raywui_log.h"
 #include <string.h>
 // Defined here because DGuiEdit::DrawTextBox() is a custom implementation of GuiTextBox()
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
 
 #define DEFAULT_MAX_TEXT_LENGHT 128
+
+const char TAG[9]="DGuiEdit";
 
 DGuiEdit::DGuiEdit(int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, DGuiWidget *ParentWidget) : DGuiWidget(DEDIT,LeftPos,TopPos,WidgetWidth,WidgetHeight,ParentWidget) {
     Init();
@@ -17,7 +19,7 @@ DGuiEdit::DGuiEdit(Rectangle WidgetBounds, DGuiWidget *ParentWidget) : DGuiWidge
 
 DGuiEdit::~DGuiEdit()
 {
-    Log(DLOG_DEBUG,"~DGuiEdit() %s",Name.c_str());
+    Log::debug(TAG,"~DGuiEdit() %s",Name.c_str());
     delete viewBuff;
     if (hideBuff) {
         delete hideBuff;

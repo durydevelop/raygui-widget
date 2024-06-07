@@ -2,6 +2,7 @@
 #define DGuiEdit_H
 
 #include <DGuiWidget.h>
+#include <raygui.h>
 
 class DGuiEdit : public DGuiWidget
 {
@@ -36,7 +37,7 @@ class DGuiEdit : public DGuiWidget
         bool PasswordMode;      /// When true viewBuff is masked with '*'.
         char *viewBuff;         /// Buffer used for ui, if PasswordMode is false it is used also for realtext.
         char *hideBuff;         /// In password mode used to store text.
-//        int textBoxShadowCursorIndex;  /// In password mode used to keep trace of current cursor position.
+        int textBoxShadowCursorIndex;  /// In password mode used to keep trace of current cursor position.
         bool EditMode;
 
         //int DrawTextBox(Rectangle bounds, int bufferSize, bool editMode);

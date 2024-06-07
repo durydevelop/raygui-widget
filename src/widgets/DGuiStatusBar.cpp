@@ -1,9 +1,11 @@
 #include "DGuiStatusBar.h"
 //#define RAYGUI_IMPLEMENTATION
 //#include <raygui.h>
-#include "Log.h"
+#include "raywui_log.h"
 #include <DGuiContainer.h>
-#include <libdpp/DPreferences.h>
+#include <dpplib/DPreferences.h>
+
+const char TAG[14]="DGuiStatusBar";
 
 DGuiStatusBar::DGuiStatusBar(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget) : DGuiWidget(DSTATUSBAR,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget) {
     DEFAULT_SIDE_SIZE=16;
@@ -31,13 +33,13 @@ DGuiStatusBar::DGuiStatusBar(DDocking DockingPos, int SideSize, DGuiWidget *Pare
 DGuiStatusBar* DGuiStatusBar::LoadFromJson(std::string JsonFilename, DGuiWidget *Parent) {
     DTools::DPreferences Json(JsonFilename);
     if (!Json.IsReady()) {
-        Log(DLOG_ERROR,"%s cannot be opened: %s",JsonFilename.c_str(),Json.GetLastStatus().c_str());
+        Log::error(TAG,"%s cannot be opened: %s",JsonFilename.c_str(),Json.GetLastStatus().c_str());
         return nullptr;
     }
     
     DGuiWidget *Widget=DGuiWidget::New(Json.GetRootTree(),Parent);
     if (Widget->GetWidgetType() != DWidgetType::DSTATUSBAR) {
-        Log(DLOG_ERROR,"Not a StatusBar widget: %s",Widget->GetWidgetTypeName().c_str());
+        Log::error(TAG,"Not a StatusBar widget: %s",Widget->GetWidgetTypeName().c_str());
         return nullptr;
     }
 

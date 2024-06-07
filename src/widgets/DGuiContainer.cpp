@@ -4,13 +4,13 @@
 #include <DGuiEdit.h>
 #include <DGuiButton.h>
 #include <DGuiStatusBar.h>
-#include "Log.h"
+#include "raywui_log.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <libdpp/DPath.h>
-#include <libdpp/DString.h>
-#include <libdpp/DCsv.h>
+#include <dpplib/DPath.h>
+#include <dpplib/DString.h>
+#include <dpplib/DCsv.h>
 #include <typeinfo>
 
 #define DOT DPreferences::DEFAULT_TRANSLATOR
@@ -22,6 +22,8 @@ const std::string VALUE_RIGHT="Right";
 const std::string VALUE_CENTER="Center";
 */
 using namespace DTools;
+
+const char TAG[14]="DGuiContainer";
 
 DGuiContainer::DGuiContainer(int LeftPos, int TopPos, int ContainerWidth, int ContainerHeight, DGuiWidget *ParentWidget) : DGuiWidget(DCONTAINER,LeftPos,TopPos,ContainerWidth,ContainerHeight,ParentWidget)
 {
@@ -37,7 +39,7 @@ DGuiContainer::DGuiContainer(Rectangle ContainerBounds, DGuiWidget *ParentWidget
 
 DGuiContainer::~DGuiContainer()
 {
-    Log(DLOG_DEBUG,"~DGuiContainer() %s %d children",Name.c_str(),Children.size());
+    Log::debug(TAG,"~DGuiContainer() %s %d children",Name.c_str(),Children.size());
     for (auto [id,widget] : Children) {
         //Log(DLOG_DEBUG,"delete %s",widget->Name.c_str());
         delete widget;
