@@ -34,7 +34,7 @@ endif()
 
 #### Create project
 project(raywui
-    VERSION 0.2.1
+    VERSION 0.2.2
     LANGUAGES C CXX
 )
 
