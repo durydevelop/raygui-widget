@@ -33,8 +33,19 @@ DGuiContainer::DGuiContainer(int LeftPos, int TopPos, int ContainerWidth, int Co
     //}
 }
 
-DGuiContainer::DGuiContainer(Rectangle ContainerBounds, DGuiWidget *ParentWidget) : DGuiWidget(DCONTAINER,ContainerBounds,ParentWidget) {
+DGuiContainer::DGuiContainer(Rectangle ContainerBounds, DGuiWidget *ParentWidget) : DGuiWidget(DCONTAINER,ContainerBounds,ParentWidget)
+{
     
+}
+
+DGuiContainer::DGuiContainer(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiWidget(WidgetTree,ParentWidget,EventCallback)
+{
+    FinalizeFromTree(WidgetTree);
+    Ready=(Type == DCONTAINER);
+}
+
+DGuiContainer::DGuiContainer(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiContainer(std::move(ExtractDTree(LayoutFilename)),ParentWidget,EventCallback)
+{
 }
 
 DGuiContainer::~DGuiContainer()
@@ -46,12 +57,24 @@ DGuiContainer::~DGuiContainer()
     }
 }
 
+void DGuiContainer::FinalizeFromTree(DTools::DTree& WidgetTree)
+{
+    //DGuiWidget::InitFromTree(WidgetTree);
+    // ** Read class specific properties **
+    // Widgets
+    std::vector<DTree> Children=WidgetTree.ReadArrayTrees(DJsonTree::SEC_CHILDREN);
+    Log::debug(TAG,"Container %s have %d widgets",Name.c_str(),Children.size());
+    for (auto Child : Children) {
+        AddWidget(&Child);
+    }
+}
+
 void DGuiContainer::SetOnGuiEvent(OnGuiEventCallback Callback) {
     for (auto &[id,widget] : Children) {
         widget->SetOnGuiEvent(Callback);
     }
 }
-
+/*
 DGuiWidget* DGuiContainer::AddWidget(DWidgetType WidgetType, int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, std::string Text)
 {
     auto Widget=DGuiWidget::New(WidgetType,LeftPos,TopPos,WidgetWidth,WidgetHeight,Text, this);
@@ -63,7 +86,7 @@ DGuiWidget* DGuiContainer::AddWidget(DWidgetType WidgetType, Rectangle WidgetBou
     auto Widget=DGuiWidget::New(WidgetType,WidgetBounds.x,WidgetBounds.y,WidgetBounds.width,WidgetBounds.height,Text,this);
     return (AddWidget(Widget));
 }
-
+*/
 DGuiWidget* DGuiContainer::AddWidget(DGuiWidget *Widget)
 {
     if (Widget) {
@@ -73,8 +96,9 @@ DGuiWidget* DGuiContainer::AddWidget(DGuiWidget *Widget)
     return Widget;
 }
 
-DGuiWidget* DGuiContainer::AddWidgetFromJson(std::string JsonFilename) {
-    auto Widget=DGuiWidget::New(JsonFilename,this);
+DGuiWidget* DGuiContainer::AddWidget(DTools::DTree *WidgetTree)
+{
+    DGuiWidget *Widget=New(*WidgetTree,Parent,OnWidgetEvent);
     return AddWidget(Widget);
 }
 

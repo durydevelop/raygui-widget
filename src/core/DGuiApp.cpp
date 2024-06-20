@@ -48,6 +48,12 @@ void DGuiApp::SetTitle(std::string AppTitle) {
     Title=AppTitle;
 }
 
+DGuiContainer* DGuiApp::SetActiveContainer(DGuiContainer *Container)
+{
+    ActiveContainer=Container;
+    return ActiveContainer;
+}
+
 DGuiContainer* DGuiApp::SetActiveContainer(std::string ContainerName)
 {
     auto Container=GetContainerFromName(ContainerName);
@@ -95,6 +101,7 @@ DGuiContainer* DGuiApp::AddContainer(std::string ContainerName) {
     }
 
     DGuiContainer *NewContainer=new DGuiContainer(0,0,Width,Height,nullptr);
+    NewContainer->Name=ContainerName;
     return (AddContainer(NewContainer));
 }
 
@@ -112,19 +119,23 @@ DGuiContainer* DGuiApp::AddContainer(DGuiContainer *NewContainer) {
 }
 
 DGuiContainer* DGuiApp::AddContainerFromFile(std::string JsonFilename) {
-    DGuiContainer *NewContainer=(DGuiContainer *) DGuiWidget::New(JsonFilename,nullptr);
-
-    if (!NewContainer) {
-        Log::error(TAG,"%s layout possibile incorrect",JsonFilename.c_str());
-        return nullptr;
-    }
-
+    DGuiContainer* NewContainer=new DGuiContainer(JsonFilename,nullptr);
     AddContainer(NewContainer);
     return NewContainer;
 }
 
+DGuiWidget* DGuiApp::AddStaticWidget(DGuiWidget *NewWidget) {
+    if (!NewWidget) {
+        return nullptr;
+    }
+    NewWidget->SetOnGuiEvent(GuiEventCallback);
+
+    StaticWidgets.emplace(NewWidget->Name,NewWidget);
+    return NewWidget;
+}
+
 DGuiWidget* DGuiApp::AddStaticWidgetFromFile(std::string JsonFilename) {
-    DGuiWidget* Widget=DGuiWidget::New(JsonFilename,nullptr);
+    DGuiWidget* Widget=DGuiWidget::New(JsonFilename);
     if (!Widget) {
         Log::error(TAG,"%s layout possibile incorrect",JsonFilename.c_str());
         return nullptr;

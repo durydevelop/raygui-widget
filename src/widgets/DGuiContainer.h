@@ -29,12 +29,14 @@ class DGuiContainer : public DGuiWidget {
     public:
         DGuiContainer(int LeftPos, int TopPos, int ContainerWidth, int ContainerHeight, DGuiWidget *ParentWidget);
         DGuiContainer(Rectangle ContainerBounds, DGuiWidget *ParentWidget);
+        DGuiContainer(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
+        DGuiContainer(const std::string& LayoutFilename, DGuiWidget *ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
         ~DGuiContainer();
 
         DGuiWidget* AddWidget(DGuiWidget *Widget);
-        DGuiWidget* AddWidget(DWidgetType WidgetType, int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, std::string Text);
-        DGuiWidget* AddWidget(DWidgetType WidgetType, Rectangle WidgetBounds, std::string Text);
-        DGuiWidget* AddWidgetFromJson(std::string JsonFilename);
+//        DGuiWidget* AddWidget(DWidgetType WidgetType, int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, std::string Text);
+//        DGuiWidget* AddWidget(DWidgetType WidgetType, Rectangle WidgetBounds, std::string Text);
+        DGuiWidget* AddWidget(DTools::DTree *WidgetTree);
         void SetOnGuiEvent(OnGuiEventCallback Callback) override;
         //bool LoadFromFile(std::string Filename);
         //bool LoadFromTree(DTools::DTree Json);
@@ -45,6 +47,7 @@ class DGuiContainer : public DGuiWidget {
         void Draw(void) override;
 
     private:
+        void FinalizeFromTree(DTools::DTree& WidgetTree);
         std::map<std::string, DGuiWidget*> Children;
 };
 

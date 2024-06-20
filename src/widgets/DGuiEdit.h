@@ -9,6 +9,8 @@ class DGuiEdit : public DGuiWidget
     public:
         DGuiEdit(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget);
         DGuiEdit(Rectangle WidgetBounds, DGuiWidget *ParentWidget);
+        DGuiEdit(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
+        DGuiEdit(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
         ~DGuiEdit();
 
         void SetMaxTextLenght(size_t Lenght);
@@ -29,7 +31,8 @@ class DGuiEdit : public DGuiWidget
         bool IsEmpty(void);
 
     private:
-        void Init(void);
+        void InitDefault(void);
+        void FinalizeFromTree(DTools::DTree& WidgetTree);
         //int DrawTextBox(Rectangle bounds, char *mainBuff, char *shadowBuff, int textSize, bool editMode);
 
         size_t MaxTextLenght;   /// Max lenght of edit text

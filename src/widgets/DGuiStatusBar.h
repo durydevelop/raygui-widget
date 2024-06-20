@@ -13,12 +13,9 @@ class DGuiStatusBar : public DGuiWidget
 
         DGuiStatusBar(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget);
         DGuiStatusBar(Rectangle WidgetBounds, DGuiWidget *ParentWidget);
-        //DGuiStatusBar(DDocking DockPos = DOCK_BOTTOM, int SideSize , DGuiWidget *ParentWidget = nullptr);
-        //TODO? DGuiStatusBar(std::string JsonFilename);
-
-        static DGuiStatusBar* LoadFromJson(std::string JsonFilename, DGuiWidget *Parent);
-
-        //void SetParent(DGuiWidget *Parent) override;
+        DGuiStatusBar(DDocking DockingPos, int OtherSize, DGuiWidget *ParentWidget);
+        DGuiStatusBar(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
+        DGuiStatusBar(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
 
         void AddItem(std::string ItemName, int Left, int Width, std::string ItemText);
         DStatusBarItem* GetItem(std::string ItemName);
@@ -28,6 +25,9 @@ class DGuiStatusBar : public DGuiWidget
         void Draw() override;
 
         std::map<std::string,DStatusBarItem> Items;
+
+    private:
+        void FinalizeFromTree(DTools::DTree& WidgetTree);
 };
 
 #endif

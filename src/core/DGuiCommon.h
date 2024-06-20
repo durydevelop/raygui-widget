@@ -30,22 +30,6 @@ typedef enum {
     DSTATUSBAR
 } DWidgetType;
 
-static const std::map<std::string, DWidgetType> WidgetNameToType = {
-    {"Label",DLABEL},
-    {"Button",DBUTTON},
-    {"Edit",DEDIT},
-    {"StatusBar",DSTATUSBAR},
-    {"Container",DCONTAINER},
-};
-
-static const std::map<DWidgetType,std::string> WidgetTypeToName = {
-    {DLABEL,"Label"},
-    {DBUTTON,"Button"},
-    {DEDIT,"Edit"},
-    {DSTATUSBAR,"StatusBar"},
-    {DCONTAINER,"Container"},
-};
-
 enum DEventCode { BUTTON_PRESS, EDIT_END };
 
 // Rapresent a widget event

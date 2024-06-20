@@ -3,13 +3,27 @@
 
 //const char TAG[10]="DGuiLabel";
 
-DGuiLabel::DGuiLabel(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget) : DGuiWidget(DLABEL,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget) {
-    DEFAULT_SIDE_SIZE=50;
-    DEFAULT_WIDTH=50;
-    DEFAULT_HEIGHT=20;
+DGuiLabel::DGuiLabel(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget) : DGuiWidget(DLABEL,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget)
+{
+    InitDefault();
 }
 
 DGuiLabel::DGuiLabel(Rectangle WidgetBounds, DGuiWidget *ParentWidget) : DGuiWidget(DLABEL,WidgetBounds,ParentWidget) {
+    InitDefault();
+}
+
+DGuiLabel::DGuiLabel(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiWidget(WidgetTree,ParentWidget,EventCallback)
+{
+    InitDefault();
+    Ready=(Type == DLABEL);
+}
+
+DGuiLabel::DGuiLabel(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiLabel(std::move(ExtractDTree(LayoutFilename)),ParentWidget,EventCallback)
+{
+}
+
+void DGuiLabel::InitDefault(void)
+{
     DEFAULT_SIDE_SIZE=50;
     DEFAULT_WIDTH=50;
     DEFAULT_HEIGHT=20;

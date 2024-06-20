@@ -44,8 +44,9 @@ class DGuiApp
         DGuiContainer* AddContainer(std::string ContainerName);
         DGuiContainer* AddContainer(DGuiContainer *NewContainer);
         DGuiContainer* AddContainerFromFile(std::string LayoutFilename);
+        DGuiWidget* AddStaticWidget(DGuiWidget *NewWidget);
         DGuiWidget* AddStaticWidgetFromFile(std::string LayoutFilename);
-        //void SetActiveContainer(DGuiContainer *Container);
+        DGuiContainer* SetActiveContainer(DGuiContainer *Container);
         DGuiContainer* SetActiveContainer(std::string ContainerName);
         DGuiContainer* GetContainerFromName(std::string ContainerName);
 

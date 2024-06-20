@@ -10,11 +10,22 @@
 const char TAG[9]="DGuiEdit";
 
 DGuiEdit::DGuiEdit(int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, DGuiWidget *ParentWidget) : DGuiWidget(DEDIT,LeftPos,TopPos,WidgetWidth,WidgetHeight,ParentWidget) {
-    Init();
+    InitDefault();
 }
 
 DGuiEdit::DGuiEdit(Rectangle WidgetBounds, DGuiWidget *ParentWidget) : DGuiWidget(DEDIT,WidgetBounds,ParentWidget) {
-    Init();
+    InitDefault();
+}
+
+DGuiEdit::DGuiEdit(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiWidget(WidgetTree,ParentWidget,EventCallback)
+{
+    InitDefault();
+    FinalizeFromTree(WidgetTree);
+    Ready=(Type == DEDIT);
+}
+
+DGuiEdit::DGuiEdit(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiEdit(std::move(ExtractDTree(LayoutFilename)),ParentWidget,EventCallback)
+{
 }
 
 DGuiEdit::~DGuiEdit()
@@ -26,7 +37,7 @@ DGuiEdit::~DGuiEdit()
     }
 }
 
-void DGuiEdit::Init(void)
+void DGuiEdit::InitDefault(void)
 {
     EditMode=false;
     ReadOnly=false;
@@ -39,6 +50,19 @@ void DGuiEdit::Init(void)
     DEFAULT_SIDE_SIZE=50;
     DEFAULT_WIDTH=50;
     DEFAULT_HEIGHT=20;
+}
+
+void DGuiEdit::FinalizeFromTree(DTools::DTree& WidgetTree)
+{
+    // ** Read class specific properties **
+    // ReadOnly
+    bool ro=WidgetTree.ReadBool(DJsonTree::ITEM_READ_ONLY,false);
+    SetReadOnly(ro);
+    // PasswordMode
+    bool pm=WidgetTree.ReadBool(DJsonTree::ITEM_PASSWORD_MODE,false);
+    SetPasswordMode(pm);
+    // MaxTextLenght
+    SetMaxTextLenght(WidgetTree.ReadInteger(DJsonTree::ITEM_MAX_TEXT_LENGHT,0));
 }
 
 /**

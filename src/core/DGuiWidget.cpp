@@ -14,43 +14,8 @@
 
 using namespace DTools;
 
-struct DJsonTree {
-    inline static std::string SEC_CHILDREN="Children";
-    inline static const std::string SEC_BOUNDS="Bounds";
-    inline static const std::string SEC_STATUSBAR_ITEMS="StatusBarItems";
-
-    inline static const std::string ITEM_NAME="Name";
-    //inline static const std::string ITEM_ANCHOR_ID="AnchorId";
-    inline static const std::string ITEM_TYPE="Type";
-    inline static const std::string ITEM_TEXT="Text";
-    inline static const std::string ITEM_TEXT_SIZE="TextSize";
-    inline static const std::string ITEM_TEXT_ALIGN_H="TextAlignH";
-    inline static const std::string ITEM_TEXT_ALIGN_V="TextAlignV";
-    inline static const std::string ITEM_LEFT="Left";
-    inline static const std::string ITEM_TOP="Top";
-    inline static const std::string ITEM_WIDTH="Width";
-    inline static const std::string ITEM_HEIGHT="Height";
-    inline static const std::string ITEM_DOCKING="Docking";
-    inline static const std::string ITEM_SIDE="Side";
-    inline static const std::string ITEM_SIZE="Size";
-    inline static const std::string ITEM_BOUNDS="Bounds";
-    inline static const std::string ITEM_READ_ONLY="ReadOnly";
-    inline static const std::string ITEM_PASSWORD_MODE="PasswordMode";
-    inline static const std::string ITEM_MAX_TEXT_LENGHT="MaxTextLenght";
-    inline static const std::string ITEM_ENABLED="Enabled";
-    inline static const std::string ITEM_VISIBLE="Visible";
-    inline static const std::string ITEM_SHOW_BORDER="ShowBorder";
-    inline static const std::string ITEM_BORDER_WIDTH="BorderWidth";
-
-    inline static const std::string VALUE_BOTTOM="Bottom";
-    inline static const std::string VALUE_TOP="Top";
-    inline static const std::string VALUE_LEFT="Left";
-    inline static const std::string VALUE_RIGHT="Right";
-    inline static const std::string VALUE_CENTER="Center";
-};
-
 // Rgl layout file stuff
-struct DRgl {
+struct DRglLayout {
     static const uint8_t ControlLineItemsCount=10;
     enum ControlItemsIx{ CTRL_IX_ID=1, CTRL_IX_TYPE, CTRL_IX_NAME, CTRL_IX_X, CTRL_IX_Y, CTRL_IX_WIDTH, CTRL_IX_HEIGHT, CTRL_IX_ANCHOR_ID, CTRL_IX_TEXT };
     //enum RGL_ANCHOR_ITEMS_IX { ANCHOR_IX_ID=1, ANCHOR_IX_NAME, ANCHOR_IX_X, ANCHOR_IX_Y, ANCHOR_IX_ENABLED };
@@ -75,22 +40,16 @@ DGuiWidget::DGuiWidget(DWidgetType WidgetType, int LeftPos, int TopPos, int Widg
 {
     // Create id
     GenerateId();
-
-    // Init widget
-    if (LeftPos < 0) {
-        LeftPos=0;
-    }
-    if (TopPos < 0) {
-        TopPos=0;
-    }
-    //Log::debug(TAG,"ParentWidget=%d",ParentWidget);
-    //Log::debug(TAG,"SetParent");
+    // Parent
     SetParent(ParentWidget);
-    //Log::debug(TAG,"SetBounds");
-    SetBounds(LeftPos,TopPos,WidgetWidth,WidgetHeight);
-    //Log::debug(TAG,"SetWidgetType");
-    SetWidgetType(WidgetType);
+    // Events callback
     OnWidgetEvent=EventCallback;
+    // Bounds
+    SetBounds(LeftPos,TopPos,WidgetWidth,WidgetHeight);
+    // Type
+    SetWidgetType(WidgetType);
+
+    Ready=true;
 };
 
 /**
@@ -104,8 +63,109 @@ DGuiWidget::DGuiWidget(DWidgetType WidgetType, Rectangle WidgetBounds, DGuiWidge
 {
     // Create id
     GenerateId();
+    // Parent
+    SetParent(ParentWidget);
+    // Events callback
+    OnWidgetEvent=EventCallback;
+    // Bounds
+    SetBounds(WidgetBounds);
+    // Type
+    SetWidgetType(WidgetType);
 
-    // Init widget
+    Ready=true;
+};
+
+DGuiWidget::DGuiWidget(DWidgetType WidgetType, DDocking DockingPos, int OtherSize, DGuiWidget *ParentWidget, OnWidgetEventCallback EventCallback)
+{
+    // Create id
+    GenerateId();
+    // Parent
+    SetParent(ParentWidget);
+    // Events callback
+    OnWidgetEvent=EventCallback;
+    // Docking
+    SetDocking(DockingPos,OtherSize);
+    // Type
+    SetWidgetType(WidgetType);
+
+    Ready=true;
+};
+
+DGuiWidget::DGuiWidget(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback)
+{
+    // Create id
+    GenerateId();
+    // Parent
+    SetParent(ParentWidget);
+    // Events callback
+    OnWidgetEvent=EventCallback;
+    // Init widget from DTree
+    Ready=InitFromTree(WidgetTree);
+}
+
+DGuiWidget* DGuiWidget::New(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback)
+{
+    // Extract DTree
+    auto WidgetTree=ExtractDTree(LayoutFilename);
+    // Create from Dtree widget
+    return New(WidgetTree,ParentWidget,EventCallback);
+}
+
+DGuiWidget* DGuiWidget::New(DTools::DTree& WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback)
+{
+    DWidgetType WidgetType=NameToType(WidgetTree.ReadString(DJsonTree::ITEM_TYPE,""));
+    if (WidgetType == DCONTAINER) {
+        //Log::debug(TAG,"New Container");
+        DGuiContainer *Container=new DGuiContainer(WidgetTree,ParentWidget,EventCallback);
+        return Container;
+    }
+    if (WidgetType == DLABEL) {
+        //Log::debug(TAG,"New label");
+        DGuiLabel *Label=new DGuiLabel(WidgetTree,ParentWidget,EventCallback);
+        return Label;
+    }
+    else if (WidgetType == DBUTTON) {
+        //Log::debug(TAG,"New button");
+        DGuiButton *Button=new DGuiButton(WidgetTree,ParentWidget,EventCallback);
+        return Button;
+    }
+    else if (WidgetType == DEDIT) {
+        //Log::debug(TAG,"New edit");
+        DGuiEdit *Edit=new DGuiEdit(WidgetTree,ParentWidget,EventCallback);
+        return Edit;
+    }
+    if (WidgetType == DSTATUSBAR) {
+        //Log::debug(TAG,"New StatusBar");
+        DGuiStatusBar *StatusBar=new DGuiStatusBar(WidgetTree,ParentWidget,EventCallback);
+        return StatusBar;
+    }
+
+    if (WidgetTypes.contains(WidgetType)) {
+        Log::error(TAG,"Widget type %s not implemented",WidgetTypes.at(WidgetType).c_str());
+    }
+    else {
+        Log::error(TAG,"Unknown Widget Type");
+    }
+    return nullptr;
+}
+
+bool DGuiWidget::InitFromTree(DTools::DTree& WidgetTree)
+{
+    if (WidgetTree.IsEmpty()) {
+        LastError="InitFromTree() WidgetTree is empty";
+        return false;
+    }
+    // ** Load base info to instantiate a DWidget **
+    // Type
+    DWidgetType WidgetType=DWidgetType::UNKNOWN;
+    SetWidgetType(NameToType(WidgetTree.ReadString(DJsonTree::ITEM_TYPE,"")));
+
+    // Bounds
+    Rectangle WidgetBounds;
+    WidgetBounds.x=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_LEFT,-1);
+    WidgetBounds.y=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_TOP,-1);
+    WidgetBounds.width=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_WIDTH,-1);
+    WidgetBounds.height=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_HEIGHT,-1);
     if (WidgetBounds.x < 0) {
         WidgetBounds.x=0;
     }
@@ -113,10 +173,62 @@ DGuiWidget::DGuiWidget(DWidgetType WidgetType, Rectangle WidgetBounds, DGuiWidge
         WidgetBounds.y=0;
     }
     SetBounds(WidgetBounds);
-    SetParent(ParentWidget);
-    SetWidgetType(WidgetType);
-    OnWidgetEvent=EventCallback;
-};
+
+    // Text
+    SetText(WidgetTree.ReadString(DJsonTree::ITEM_TEXT,""));
+
+    // ** Read widget properties **
+    // Text size
+    Properties.TextSize=WidgetTree.ReadInteger(DJsonTree::ITEM_TEXT_SIZE,-1);
+    // Text align
+    std::string AlignHoriz=WidgetTree.ReadString(DJsonTree::ITEM_TEXT_ALIGN_H,"");
+    std::string AlignVert=WidgetTree.ReadString(DJsonTree::ITEM_TEXT_ALIGN_V,"");
+    SetTextAlign(AlignHoriz,AlignVert);
+    
+// @todo (sono già gestite da Widget->Draw)
+//    Properties.TextColor=GuiGetStyle(Type,TEXT_COLOR_NORMAL);
+//    Properties.TextSpacing=GuiGetStyle(Type,TEXT_SPACING);
+    
+    // Borders
+//    Properties.BorderWidth=GuiGetStyle(Type,BORDER_WIDTH);
+//   Properties.BorderColor=GuiGetStyle(Type,BORDER_COLOR_NORMAL);
+
+    // Other Colors
+//    Properties.LineColor=GuiGetStyle(Type,LINE_COLOR);
+//    Properties.BackGroundColor=GuiGetStyle(Type,BACKGROUND_COLOR);
+
+
+    // AnchorId
+    // Widget->Properties.AnchorId=WidgetTree.ReadString(DJsonTree::ITEM_ANCHOR_ID,""); // deprecated
+
+    // Possible docking position
+    std::string DockingSide=WidgetTree.ReadString(DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIDE,"");
+    int DockingSize=WidgetTree.ReadInteger(DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,-1);
+    if (!DockingSide.empty()) {
+        SetDocking(DockingSide,DockingSize);
+    }
+
+    // Name
+    Name=WidgetTree.ReadString(DJsonTree::ITEM_NAME,"");
+    if (Name.empty()) {
+        Log::warning(TAG,"Container %s has no name",Id.c_str());
+    }
+
+    // Enabled
+    Properties.Enabled=WidgetTree.ReadBool(DJsonTree::ITEM_ENABLED,true);
+
+    // Visible
+    Properties.Visible=WidgetTree.ReadBool(DJsonTree::ITEM_VISIBLE,true);
+
+    // ShowBorder
+    Properties.ShowBorder=WidgetTree.ReadBool(DJsonTree::ITEM_SHOW_BORDER,false);
+
+    // Border width
+    int BorderWidth=WidgetTree.ReadInteger(DJsonTree::ITEM_BORDER_WIDTH, 0);
+    if (BorderWidth > 0) Properties.BorderWidth=BorderWidth;
+
+    return true;
+}
 
 void DGuiWidget::GenerateId(void)
 {
@@ -254,8 +366,42 @@ void DGuiWidget::SetHeight(int Height)
  */
 void DGuiWidget::SetBounds(int LeftPos, int TopPos, int Width, int Height)
 {
-    SetPos(LeftPos,TopPos);
-    SetSize(Width,Height);
+    if (LeftPos < 0) {
+        switch (LeftPos) {
+            case DOCK_LEFT:
+                SetDocking(DOCK_LEFT,Width);
+                break;
+            case DOCK_RIGHT:
+                SetDocking(DOCK_RIGHT,Width);
+                break;
+            case DOCK_CENTER:
+                SetDocking(DOCK_HCENTER,Width);
+                break;
+            default:
+                SetPos(LeftPos,TopPos);
+                SetSize(Width,Height);
+        }
+    }
+    else if (TopPos < 0) {
+        switch (TopPos) {
+            case DOCK_TOP:
+                SetDocking(DOCK_TOP,Height);
+                break;
+            case DOCK_BOTTOM:
+                SetDocking(DOCK_BOTTOM,Height);
+                break;
+            case DOCK_CENTER:
+                SetDocking(DOCK_VCENTER,Height);
+                break;
+            default:
+                SetPos(LeftPos,TopPos);
+                SetSize(Width,Height);
+        }
+    }
+    else {
+        SetPos(LeftPos,TopPos);
+        SetSize(Width,Height);
+    }
 };
 
 /**
@@ -311,7 +457,7 @@ void DGuiWidget::SetDocking(DDocking DockingSide, int OtherSize) {
     int ParentHeight=0;
     int ParentWidth=0;
 
-    if (!Parent) {
+    if (Parent == nullptr) {
         ParentHeight=GetScreenHeight();
         ParentWidth=GetScreenWidth();
     }
@@ -346,6 +492,10 @@ void DGuiWidget::SetDocking(DDocking DockingSide, int OtherSize) {
             Bounds.x=0;
             Bounds.y=0;
             break;
+        case DOCK_HCENTER:
+        case DOCK_VCENTER:
+        case DOCK_CENTER:
+            /// @todo
         default:
             break;
     }
@@ -363,10 +513,7 @@ DWidgetType DGuiWidget::GetWidgetType(void) {
 }
 
 std::string DGuiWidget::GetWidgetTypeName(void) {
-    if (WidgetTypeToName.contains(Type)) {
-        return WidgetTypeToName.at(Type);
-    }
-    return std::string();
+    return TypeToName(Type);
 }
 
 /**
@@ -570,6 +717,43 @@ void DGuiWidget::Draws(void) {
  * @return false if an error occours or not all widgets are loaded.
  * 
  */
+DTree DGuiWidget::ExtractDTree(const std::string& Filename) {
+    Log::debug(TAG,"Loading %s",Filename.c_str());
+    std::string JsonFilename;
+    if (DString::CmpNoCase(DPath::GetExt(Filename),"rgl")) {
+        // Raygui rgl format, convert to json
+        JsonFilename=DPath::ChangeExt(Filename,"json",false);
+        if (DPath::Exists_StdFs(JsonFilename.c_str())) {
+            Log::warning(TAG,"found a Json version of same layout, assume to use it");
+        }
+        else {
+            if (!DPath::Exists(Filename)) {
+                Log::error(TAG,"Layout file does not exist: %s",Filename.c_str());
+                return std::move(DTree());
+            }
+            Log::debug(TAG,"rgl file need to be converted to json");
+            JsonFilename=RglToJson(Filename);
+        }
+    }
+    else {
+        JsonFilename=Filename;
+    }
+
+    if (JsonFilename.empty()) {
+        Log::error(TAG,"Not valid layout file...");
+        return std::move(DTree());
+    }
+
+    DPreferences Json(JsonFilename,false);
+    if (!Json.IsReady()) {
+        Log::error(TAG,"Error parsing %s: %s",JsonFilename.c_str(), Json.GetLastStatus().c_str());
+        return std::move(DTree());
+    }
+
+    DTree dt=Json.GetTree();
+    return (std::move(dt));
+}
+/*
 DGuiWidget* DGuiWidget::New(const std::string& Filename, DGuiWidget *Parent) {
     Log::debug(TAG,"Loading %s",Filename.c_str());
     std::string JsonFilename;
@@ -606,7 +790,103 @@ DGuiWidget* DGuiWidget::New(const std::string& Filename, DGuiWidget *Parent) {
     DTree dt=Json.GetTree();
     return DGuiWidget::New(std::move(dt), Parent);
 }
+*/
+/*
+DTools::DTree DGuiWidget::Init(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback)
+{
+    // Create DTree from json
+    DTree WidgetTree=ExtractDTree(LayoutFilename);
 
+    return Init(std::move(WidgetTree),ParentWidget,EventCallback);
+}
+
+DTools::DTree DGuiWidget::DGuiWidget(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback)
+{
+    // Create id
+    GenerateId();
+
+    // ** Load base info to instantiate a DWidget **
+    // Type
+    DWidgetType WidgetType=DWidgetType::UNKNOWN;
+    std::string TypeName=WidgetTree.ReadString(DJsonTree::ITEM_TYPE,"");
+    if (WidgetNameToType.contains(TypeName)) {
+        WidgetType=WidgetNameToType.at(TypeName);
+    }
+    SetWidgetType(WidgetType);
+
+    // Bounds
+    Rectangle WidgetBounds;
+    WidgetBounds.x=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_LEFT,-1);
+    WidgetBounds.y=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_TOP,-1);
+    WidgetBounds.width=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_WIDTH,-1);
+    WidgetBounds.height=WidgetTree.ReadInteger(DJsonTree::ITEM_BOUNDS,DJsonTree::ITEM_HEIGHT,-1);
+    if (WidgetBounds.x < 0) {
+        WidgetBounds.x=0;
+    }
+    if (WidgetBounds.y < 0) {
+        WidgetBounds.y=0;
+    }
+    SetBounds(WidgetBounds);
+
+    SetParent(ParentWidget);
+    OnWidgetEvent=EventCallback;
+
+    // Text
+    SetText(WidgetTree.ReadString(DJsonTree::ITEM_TEXT,""));
+
+    // ** Read widget properties **
+    // Text size
+    Properties.TextSize=WidgetTree.ReadInteger(DJsonTree::ITEM_TEXT_SIZE,-1);
+    // Text align
+    std::string AlignHoriz=WidgetTree.ReadString(DJsonTree::ITEM_TEXT_ALIGN_H,"");
+    std::string AlignVert=WidgetTree.ReadString(DJsonTree::ITEM_TEXT_ALIGN_V,"");
+    SetTextAlign(AlignHoriz,AlignVert);
+    
+// @todo (sono già gestite da Widget->Draw)
+//    Properties.TextColor=GuiGetStyle(Type,TEXT_COLOR_NORMAL);
+//    Properties.TextSpacing=GuiGetStyle(Type,TEXT_SPACING);
+    
+    // Borders
+//    Properties.BorderWidth=GuiGetStyle(Type,BORDER_WIDTH);
+//   Properties.BorderColor=GuiGetStyle(Type,BORDER_COLOR_NORMAL);
+
+    // Other Colors
+//    Properties.LineColor=GuiGetStyle(Type,LINE_COLOR);
+//    Properties.BackGroundColor=GuiGetStyle(Type,BACKGROUND_COLOR);
+
+
+    // AnchorId
+    // Widget->Properties.AnchorId=WidgetTree.ReadString(DJsonTree::ITEM_ANCHOR_ID,""); // deprecated
+
+    // Possible docking position
+    std::string DockingSide=WidgetTree.ReadString(DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIDE,"");
+    int DockingSize=WidgetTree.ReadInteger(DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,-1);
+    if (!DockingSide.empty()) {
+        SetDocking(DockingSide,DockingSize);
+    }
+
+    // Name
+    Name=WidgetTree.ReadString(DJsonTree::ITEM_NAME,"");
+    if (Name.empty()) {
+        Log::warning(TAG,"Container %s has no name",Id.c_str());
+    }
+
+    // Enabled
+    Properties.Enabled=WidgetTree.ReadBool(DJsonTree::ITEM_ENABLED,true);
+
+    // Visible
+    Properties.Visible=WidgetTree.ReadBool(DJsonTree::ITEM_VISIBLE,true);
+
+    // ShowBorder
+    Properties.ShowBorder=WidgetTree.ReadBool(DJsonTree::ITEM_SHOW_BORDER,false);
+
+    // Border width
+    int BorderWidth=WidgetTree.ReadInteger(DJsonTree::ITEM_BORDER_WIDTH, 0);
+    if (BorderWidth > 0) Properties.BorderWidth=BorderWidth;
+}
+*/
+
+/*
 DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
 {
     // ** Load base info to instantiate a DWidget **
@@ -763,7 +1043,8 @@ DGuiWidget* DGuiWidget::New(DTree WidgetTree, DGuiWidget* Parent)
 
     return Widget;
 }
-
+*/
+/*
 DGuiWidget* DGuiWidget::New(DWidgetType WidgetType, int LeftPos, int TopPos, int WidgetWidth, int WidgetHeight, std::string Text, DGuiWidget *Parent)
 {
     if (WidgetType == DCONTAINER) {
@@ -810,7 +1091,7 @@ DGuiWidget* DGuiWidget::New(DWidgetType WidgetType, Rectangle WidgetBounds, std:
 {
     return DGuiWidget::New(WidgetType,WidgetBounds.x,WidgetBounds.y,WidgetBounds.width,WidgetBounds.height,Text, Parent);
 }
-
+*/
 /**
  * @brief Convert an rgl layout file in its json version.
  * Result file have same name but json extension.
@@ -836,11 +1117,11 @@ std::string DGuiWidget::RglToJson(std::string Filename) {
     }
 
     // Set to Container type
-    JsonFile.WriteString(DJsonTree::ITEM_TYPE,WidgetTypeToName.at(DCONTAINER));
+    JsonFile.WriteString(DJsonTree::ITEM_TYPE,TypeToName(DCONTAINER));
     JsonFile.WriteString(DJsonTree::ITEM_NAME,fs::path(Filename).stem());
 
     // Add Widgets
-    std::vector<DGuiWidget *> WidgetsList;
+    std::vector<DRglControl> ControlsList;
     for (std::string Line; std::getline(FileStream,Line);) {
         // Ignore all lines that not starts with 'r', 'a' or 'c'
         if (Line.empty()) {
@@ -856,25 +1137,26 @@ std::string DGuiWidget::RglToJson(std::string Filename) {
         }
         else if (Line[0] == 'c') {
             // Control
-            DGuiWidget *Widget=RglLineToWidget(Line);
-            if (!Widget) {
+            DRglControl RglControl=DecodeRglLine(Line);
+            if (RglControl.WidgetType == DWidgetType::UNKNOWN) {
                 return std::string();
             }
-            WidgetsList.emplace_back(Widget);
+            ControlsList.emplace_back(std::move(RglControl));
         }
     }
 
-    for (size_t ixC=0; ixC<WidgetsList.size(); ixC++) {
-        auto *Widget=WidgetsList[ixC];
-        std::string TreeName=DJsonTree::SEC_CHILDREN+"."+Widget->Name;
+    // Write controls to json
+    for (size_t ixC=0; ixC<ControlsList.size(); ixC++) {
+        auto Control=ControlsList[ixC];
+        std::string TreeName=DJsonTree::SEC_CHILDREN+"."+Control.Name;
         //JsonFile.WriteString(TreeName,DJsonTree::ITEM_ANCHOR_ID,Widget->Properties.AnchorId); // deprecated
-        JsonFile.WriteString(TreeName,DJsonTree::ITEM_TYPE,Widget->GetWidgetTypeName());
-        JsonFile.WriteString(TreeName,DJsonTree::ITEM_TEXT,Widget->Text);
+        JsonFile.WriteString(TreeName,DJsonTree::ITEM_TYPE,TypeToName(Control.WidgetType));
+        JsonFile.WriteString(TreeName,DJsonTree::ITEM_TEXT,Control.Text);
         TreeName=TreeName+DOT+DJsonTree::SEC_BOUNDS;
-        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_LEFT,Widget->Bounds.x);
-        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_TOP,Widget->Bounds.y);
-        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_WIDTH,Widget->Bounds.width);
-        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_HEIGHT,Widget->Bounds.height);
+        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_LEFT,Control.Bounds.x);
+        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_TOP,Control.Bounds.y);
+        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_WIDTH,Control.Bounds.width);
+        JsonFile.WriteInteger(TreeName,DJsonTree::ITEM_HEIGHT,Control.Bounds.height);
     }
     if (!JsonFile.Save()) {
         Log::error(TAG,"Error saving %s file: %s",JsonFile.GetFilename().c_str(),JsonFile.GetLastStatus().c_str());
@@ -892,54 +1174,48 @@ std::string DGuiWidget::RglToJson(std::string Filename) {
  * @return true on success.
  * @return false if some error occours.
  */
-DGuiWidget* DGuiWidget::RglLineToWidget(std::string Line) {
+DRglControl DGuiWidget::DecodeRglLine(std::string Line) {
+    DRglControl RglControl;
     std::vector<std::string> LineItems;
+
     DCsv::ReadCSVRow(LineItems,Line,' ');
-    if (LineItems.size() < DRgl::ControlLineItemsCount-1) {
+    if (LineItems.size() < DRglLayout::ControlLineItemsCount-1) {
         Log::error(TAG,"Line fields nr %d wrong",LineItems.size());
-        return nullptr;
+        return RglControl;
     }
 
-    if (LineItems.size() == DRgl::ControlLineItemsCount-1) {
+    if (LineItems.size() == DRglLayout::ControlLineItemsCount-1) {
         LineItems.emplace_back(std::string());
     }
 
     // ** Load base info to instantiate a DWidget **
     // Type
-    int WidgetType=DString::ToInt(LineItems[DRgl::CTRL_IX_TYPE]);
+    int WidgetType=DString::ToInt(LineItems[DRglLayout::CTRL_IX_TYPE]);
     WidgetType-=3; // TODO: For now it is a trick to match with RayGui type
-    if (!WidgetTypeToName.contains((DWidgetType) WidgetType)) {
+    if (!WidgetTypes.contains((DWidgetType) WidgetType)) {
         Log::error(TAG,"Control type unkown: %d",WidgetType);
-        return nullptr;
+        return RglControl;
     }
+    RglControl.WidgetType=(DWidgetType) WidgetType;
 
     // Bounds
-    Rectangle Bounds;
-    Bounds.x=DString::ToInt(LineItems[DRgl::CTRL_IX_X]);
-    Bounds.y=DString::ToInt(LineItems[DRgl::CTRL_IX_Y]);
-    Bounds.width=DString::ToInt(LineItems[DRgl::CTRL_IX_WIDTH]);
-    Bounds.height=DString::ToInt(LineItems[DRgl::CTRL_IX_HEIGHT]);
+    RglControl.Bounds.x=DString::ToInt(LineItems[DRglLayout::CTRL_IX_X]);
+    RglControl.Bounds.y=DString::ToInt(LineItems[DRglLayout::CTRL_IX_Y]);
+    RglControl.Bounds.width=DString::ToInt(LineItems[DRglLayout::CTRL_IX_WIDTH]);
+    RglControl.Bounds.height=DString::ToInt(LineItems[DRglLayout::CTRL_IX_HEIGHT]);
 
     // Text
-    std::string Text;
-    for (size_t ixV=DRgl::ControlLineItemsCount-1; ixV<LineItems.size(); ixV++) {
-        Text.append(LineItems[ixV]);
+    for (size_t ixV=DRglLayout::ControlLineItemsCount-1; ixV<LineItems.size(); ixV++) {
+        RglControl.Text.append(LineItems[ixV]);
         if (ixV < LineItems.size()-1) {
-            Text.append(" ");
+            RglControl.Text.append(" ");
         }
     }
 
-    // Create widget
-    auto Widget=DGuiWidget::New((DWidgetType) WidgetType,Bounds,Text,nullptr);
-    if (!Widget) {
-        Log::error(TAG,"Cannot create widget from rgl line");
-        return nullptr;
-    }
-
-    Widget->Name=LineItems[DRgl::CTRL_IX_NAME];
+    RglControl.Name=LineItems[DRglLayout::CTRL_IX_NAME];
     //Widget->Properties.AnchorId=LineItems[CTRL_IX_ANCHOR_ID]; // deprecated
 
-    return (Widget);
+    return (RglControl);
 }
 
 /**
@@ -960,3 +1236,33 @@ void DGuiWidget::DrawText(std::string TextMsg, Rectangle TextBounds, bool clearB
     RestoreCurrentGuiStyle();
 }
 */
+
+DWidgetType DGuiWidget::NameToType(const std::string& WidgetTypeName)
+{
+    DWidgetType WidgetType=DWidgetType::UNKNOWN;
+    for (auto item : WidgetTypes) {
+        if (item.second == WidgetTypeName) {
+            return item.first;
+        }
+    }
+    return WidgetType;
+}
+
+std::string DGuiWidget::TypeToName(DWidgetType WidgetType)
+{
+    std::string WidgetTypeName;
+    if (WidgetTypes.contains(WidgetType)) {
+        WidgetTypeName=WidgetTypes.at(WidgetType);
+    }
+    return WidgetTypeName;
+}
+
+bool DGuiWidget::IsReady(void)
+{
+    return Ready;
+}
+
+std::string DGuiWidget::GetLastError(void)
+{
+    return LastError;
+}

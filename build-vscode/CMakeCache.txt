@@ -29,8 +29,8 @@ CMAKE_AR:FILEPATH=/usr/bin/ar
 //No help, variable specified on the command line.
 CMAKE_BUILD_TYPE:STRING=Debug
 
-//No help, variable specified on the command line.
-CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++
+//CXX compiler
+CMAKE_CXX_COMPILER:STRING=/usr/bin/g++
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -55,8 +55,8 @@ CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
 //Flags used by the CXX compiler during RELWITHDEBINFO builds.
 CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
 
-//No help, variable specified on the command line.
-CMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc
+//C compiler
+CMAKE_C_COMPILER:STRING=/usr/bin/gcc
 
 //A wrapper around 'ar' adding the appropriate '--plugin' option
 // for the GCC compiler
@@ -845,22 +845,37 @@ raylib_SOURCE_DIR:STATIC=/home/fabio/Dev/cpp/lib-mcu/raywui/src/external/raylib/
 raywui_BINARY_DIR:STATIC=/home/fabio/Dev/cpp/lib-mcu/raywui/build-vscode
 
 //Build examples
-raywui_BUILD_EXAMPLES:BOOL=OFF
-
-//Build shared libraries (.dll/.so) instead of static ones (.lib/.a)
-raywui_BUILD_SHARED_LIBS:BOOL=OFF
+raywui_BUILD_EXAMPLES:BOOL=ON
 
 //Build tests suite
 raywui_BUILD_TESTING:BOOL=OFF
 
 //Create install target
-raywui_INSTALL:BOOL=OFF
+raywui_INSTALL:BOOL=ON
 
 //Value Computed by CMake
 raywui_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 raywui_SOURCE_DIR:STATIC=/home/fabio/Dev/cpp/lib-mcu/raywui
+
+//Value Computed by CMake
+showlayout_BINARY_DIR:STATIC=/home/fabio/Dev/cpp/lib-mcu/raywui/build-vscode/examples/showlayout
+
+//Value Computed by CMake
+showlayout_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+showlayout_SOURCE_DIR:STATIC=/home/fabio/Dev/cpp/lib-mcu/raywui/examples/showlayout
+
+//Value Computed by CMake
+twoform_BINARY_DIR:STATIC=/home/fabio/Dev/cpp/lib-mcu/raywui/build-vscode/examples/twoforms
+
+//Value Computed by CMake
+twoform_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+twoform_SOURCE_DIR:STATIC=/home/fabio/Dev/cpp/lib-mcu/raywui/examples/twoforms
 
 
 ########################
@@ -1007,7 +1022,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=13
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

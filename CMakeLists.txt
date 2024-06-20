@@ -63,7 +63,6 @@ list (REMOVE_DUPLICATES CMAKE_MODULE_PATH)
 include(DCMakeHelper)
 
 #### Default Options
-#option(${PROJECT_NAME}_BUILD_SHARED_LIBS "Build shared libraries (.dll/.so) instead of static ones (.lib/.a)" OFF)
 if (PROJECT_IS_TOP_LEVEL)
     option(${PROJECT_NAME}_BUILD_EXAMPLES "Build examples" ON)
     option(${PROJECT_NAME}_INSTALL "Create install target" ON)
@@ -202,10 +201,10 @@ endif()
 
 ## C++ Pre-processor variables
 # raywui_VERSION
-add_compile_definitions(${PROJECT_NAME}_VERSION="${PROJECT_VERSION}")
+target_compile_definitions(${PROJECT_NAME} PUBLIC ${PROJECT_NAME}_VERSION="${PROJECT_VERSION}")
 # RAYWUI_VERSION (uppercase)
 string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPER)
-add_compile_definitions(${PROJECT_NAME_UPPER}_VERSION="${PROJECT_VERSION}")
+target_compile_definitions(${PROJECT_NAME} PUBLIC ${PROJECT_NAME_UPPER}_VERSION="${PROJECT_VERSION}")
 
 ## Print summary
 message_c(${BOLD_CYAN} "Summary:")

@@ -64,6 +64,14 @@ if (${PROJECT_NAME}_INSTALL)
             RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
             PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${LIBRARY_TARGET_NAME}" COMPONENT dev
     )
+    set_target_properties(raylib PROPERTIES PUBLIC_HEADER "")
+    install(TARGETS raylib glfw
+            EXPORT  ${PROJECT_NAME}
+            LIBRARY       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT shlib
+            ARCHIVE       DESTINATION "${CMAKE_INSTALL_LIBDIR}"                            COMPONENT lib
+            RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
+            PUBLIC_HEADER 
+    )
 endif()
 
 message_c("Created target ${PROJECT_NAME}::${LIBRARY_TARGET_NAME}")

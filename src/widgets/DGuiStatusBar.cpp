@@ -7,21 +7,83 @@
 
 const char TAG[14]="DGuiStatusBar";
 
-DGuiStatusBar::DGuiStatusBar(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget) : DGuiWidget(DSTATUSBAR,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget) {
-    DEFAULT_SIDE_SIZE=16;
-    if (LeftPos <= 0 || TopPos <= 0 || ControlHeight <= 0 || ControlWidth <= 0) {
-        // Default position
-        SetDocking(DOCK_BOTTOM,DEFAULT_SIDE_SIZE);
+DGuiStatusBar::DGuiStatusBar(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget) : DGuiWidget(DSTATUSBAR,LeftPos,TopPos,ControlWidth,ControlHeight,ParentWidget)
+{
+}
+
+DGuiStatusBar::DGuiStatusBar(Rectangle WidgetBounds, DGuiWidget *ParentWidget) : DGuiWidget(DSTATUSBAR,WidgetBounds,ParentWidget)
+{
+}
+
+DGuiStatusBar::DGuiStatusBar(DDocking DockingPos, int OtherSize, DGuiWidget *ParentWidget) : DGuiWidget(DSTATUSBAR,DockingPos,OtherSize,ParentWidget)
+{
+}
+
+DGuiStatusBar::DGuiStatusBar(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiWidget(WidgetTree,ParentWidget,EventCallback)
+{
+    FinalizeFromTree(WidgetTree);
+    Ready=(Type == DSTATUSBAR);
+}
+
+DGuiStatusBar::DGuiStatusBar(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback) : DGuiStatusBar(std::move(ExtractDTree(LayoutFilename)),ParentWidget,EventCallback)
+{
+
+}
+
+void DGuiStatusBar::FinalizeFromTree(DTools::DTree& WidgetTree)
+{
+    // ** Read class specific properties **
+    // StatusBar items        
+    DTools::DTree SubItems=WidgetTree.GetTree(DJsonTree::SEC_STATUSBAR_ITEMS);
+    std::vector<std::string> Items;
+    SubItems.ReadNames(Items);
+    Log::debug(TAG,"StatusBar have %d items",Items.size());
+    // Add Items
+    for (std::string& ItemName : Items) {
+        int Left=0;
+        int Width=-1; // auto
+        std::string DockingSide=SubItems.ReadString(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIDE,"");
+        if (DockingSide == DJsonTree::VALUE_LEFT) {
+            //Log::debug(TAG,"Statusbar item docked to the left");
+            Left=DGuiWidget::DOCK_LEFT;
+            Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
+        }
+        else if (DockingSide == DJsonTree::VALUE_RIGHT) {
+            //Log::debug(TAG,"Statusbar item docked to the right");
+            Left=DGuiWidget::DOCK_RIGHT;
+            Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
+        }
+        else if (DockingSide == DJsonTree::VALUE_CENTER) {
+            //Log::debug(TAG,"Statusbar item docked to center");
+            Left=DGuiWidget::DOCK_CENTER;
+            Width=SubItems.ReadInteger(ItemName+"."+DJsonTree::ITEM_DOCKING,DJsonTree::ITEM_SIZE,DGuiWidget::WIDTH_AUTO);
+        }
+        else {
+            Left=SubItems.ReadInteger(ItemName,DJsonTree::ITEM_LEFT,DGuiWidget::DOCK_LEFT);
+            if (Left < DGuiWidget::DOCK_CENTER) {
+                //Log::warning(TAG,"Left value of %d is not supported, set to 0");
+                Left=0;
+            }
+            Width=SubItems.ReadInteger(ItemName,DJsonTree::ITEM_WIDTH,DGuiWidget::WIDTH_AUTO);
+        }
+        // Text
+        std::string Text=SubItems.ReadString(ItemName,DJsonTree::ITEM_TEXT,"");
+        // Text align
+        std::string AlHoriz=SubItems.ReadString(ItemName,DJsonTree::ITEM_TEXT_ALIGN_H,"");
+        std::string AlVert=SubItems.ReadString(ItemName,DJsonTree::ITEM_TEXT_ALIGN_V,"");
+        
+
+        // Add Item
+        //Log::debug(TAG,"%s: Left=%d, Width=%d, Text=<%s>",ItemName.c_str(),Left,Width,Text.c_str());
+        AddItem(ItemName,Left,Width,Text);
+        // Set align
+        DGuiStatusBar::DStatusBarItem *Item=GetItem(ItemName);
+        if (Item) {
+            Item->SetTextAlign(AlHoriz,AlVert);
+        }
     }
 }
 
-DGuiStatusBar::DGuiStatusBar(Rectangle WidgetBounds, DGuiWidget *ParentWidget) : DGuiWidget(DSTATUSBAR,WidgetBounds,ParentWidget) {
-    DEFAULT_SIDE_SIZE=16;
-    if (WidgetBounds.x <= 0 || WidgetBounds.y <= 0 || WidgetBounds.width <= 0 || WidgetBounds.height <= 0) {
-        // Default position
-        SetDocking(DOCK_BOTTOM,DEFAULT_SIDE_SIZE);
-    }
-}
 /*
 DGuiStatusBar::DGuiStatusBar(DDocking DockingPos, int SideSize, DGuiWidget *ParentWidget) : DGuiWidget(DSTATUSBAR,0,0,0,SideSize,ParentWidget)
 {
@@ -29,7 +91,7 @@ DGuiStatusBar::DGuiStatusBar(DDocking DockingPos, int SideSize, DGuiWidget *Pare
     SetDocking(DockingPos,SideSize);
 }
 */
-
+/*
 DGuiStatusBar* DGuiStatusBar::LoadFromJson(std::string JsonFilename, DGuiWidget *Parent) {
     DTools::DPreferences Json(JsonFilename);
     if (!Json.IsReady()) {
@@ -45,6 +107,7 @@ DGuiStatusBar* DGuiStatusBar::LoadFromJson(std::string JsonFilename, DGuiWidget 
 
     return (DGuiStatusBar *) Widget;
 }
+*/
 /*
 void DGuiStatusBar::SetParent(DGuiWidget *ParentContainer) {
     Parent=ParentContainer;

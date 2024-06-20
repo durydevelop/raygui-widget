@@ -9,6 +9,9 @@ class DGuiLabel : public DGuiWidget
     public:
         DGuiLabel(int LeftPos, int TopPos, int ControlWidth, int ControlHeight, DGuiWidget *ParentWidget);
         DGuiLabel(Rectangle WidgetBounds, DGuiWidget *ParentWidget);
+        DGuiLabel(DTools::DTree WidgetTree, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
+        DGuiLabel(const std::string& LayoutFilename, DGuiWidget* ParentWidget, OnWidgetEventCallback EventCallback = nullptr);
+        void InitDefault(void);
 
         void SetPrefix(std::string PrefixText);
         void SetSuffix(std::string SuffixText);

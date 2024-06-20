@@ -1,0 +1,2 @@
+- [ ] RglToJson -> Convert only known but do not stops
+- [ ] RglToJson -> [BUG] does not show text
